@@ -1,0 +1,40 @@
+""" Create your views here."""
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from bdradmin.repo.forms import UploadMasterTiffForm
+from bdradmin.repo.models import MasterTiff
+from bdradmin.repo.defaultMD import defaultRights
+
+from eulfedora.server import Repository
+
+def upload(request):
+    """Upload view for mastertiff objects"""
+    obj = None
+    form = UploadMasterTiffForm()
+    if request.method == 'POST':
+        form = UploadMasterTiffForm(request.POST, request.FILES)
+        if form.is_valid():
+            repo = Repository()
+            obj = repo.get_object(type=MasterTiff)
+            obj.mods.content = request.FILES['modsFile'].read()
+            obj.master.content = request.FILES['masterFile']
+            obj.master_colorbar.content = request.FILES['colorbarFile']
+            obj.label = form.cleaned_data['label']
+            obj.dc.content.title = form.cleaned_data['label']
+            obj.rightsMD.content = defaultRights()
+            #obj.rightsMD.content..
+            obj.save()
+
+            form=UploadMasterTiffForm()
+
+    if request.method == 'GET':
+        form = UploadMasterTiffForm()
+
+    return render_to_response('repo/upload.html',
+            {'form': form, 'obj': obj}, context_instance=RequestContext(request))
+
+def display(request, pid):
+    repo = Repository()
+    obj = repo.get_object(pid, type=MasterTiff)
+    return render_to_response('repo/display.html',{'obj':obj})
+
