@@ -1,9 +1,8 @@
 """ Create your views here."""
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from bdradmin.repo.forms import UploadMasterTiffForm
-from bdradmin.repo.models import MasterTiff
-from bdradmin.repo.defaultMD import defaultRights
+from forms import UploadMasterTiffForm
+from models import MasterTiff
 
 from eulfedora.server import Repository
 
@@ -21,8 +20,6 @@ def upload(request):
             obj.master_colorbar.content = request.FILES['colorbarFile']
             obj.label = form.cleaned_data['label']
             obj.dc.content.title = form.cleaned_data['label']
-            obj.rightsMD.content = defaultRights()
-            #obj.rightsMD.content..
             obj.save()
 
             form=UploadMasterTiffForm()
