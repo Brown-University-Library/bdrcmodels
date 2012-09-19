@@ -12,6 +12,8 @@ def choose_content_model(ds_list):
         return AudioMP3
     elif "PDF" in ds_list:
         return PDFDigitalObject
+    elif "MASTER-COLORBAR" in ds_list:
+        return MasterTiff
     elif "MASTER" in ds_list:
         return MasterTiff
     else:
