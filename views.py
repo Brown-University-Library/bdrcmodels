@@ -1,20 +1,20 @@
 """ Create your views here."""
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from forms import UploadMasterTiffForm
-from models import MasterTiff
+from forms import UploadMasterImageForm
+from models import MasterImage
 
 from eulfedora.server import Repository
 
 def upload(request):
     """Upload view for mastertiff objects"""
     obj = None
-    form = UploadMasterTiffForm()
+    form = UploadMasterImageForm()
     if request.method == 'POST':
-        form = UploadMasterTiffForm(request.POST, request.FILES)
+        form = UploadMasterImageForm(request.POST, request.FILES)
         if form.is_valid():
             repo = Repository()
-            obj = repo.get_object(type=MasterTiff)
+            obj = repo.get_object(type=MasterImage)
             obj.mods.content = request.FILES['modsFile'].read()
             obj.master.content = request.FILES['masterFile']
             obj.master_colorbar.content = request.FILES['colorbarFile']
@@ -22,16 +22,16 @@ def upload(request):
             obj.dc.content.title = form.cleaned_data['label']
             obj.save()
 
-            form=UploadMasterTiffForm()
+            form=UploadMasterImageForm()
 
     if request.method == 'GET':
-        form = UploadMasterTiffForm()
+        form = UploadMasterImageForm()
 
     return render_to_response('repo/upload.html',
             {'form': form, 'obj': obj}, context_instance=RequestContext(request))
 
 def display(request, pid):
     repo = Repository()
-    obj = repo.get_object(pid, type=MasterTiff)
+    obj = repo.get_object(pid, type=MasterImage)
     return render_to_response('repo/display.html',{'obj':obj})
 

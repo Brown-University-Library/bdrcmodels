@@ -13,11 +13,11 @@ def choose_content_model(ds_list):
     elif "PDF" in ds_list:
         return PDFDigitalObject
     elif "MASTER-COLORBAR" in ds_list:
-        return MasterTiff
+        return MasterImage
     elif "MASTER" in ds_list:
-        return MasterTiff
+        return MasterImage
     else:
-        return CommonMetadatDO
+        return ImplicitSet
 
 CONTENT_MODEL_BASE_PID = 'bdr-cmodel'
 CONTENT_MODEL_BASE_URI = 'info:fedora/%s' % CONTENT_MODEL_BASE_PID
@@ -51,22 +51,22 @@ class CommonMetadatDO(DigitalObject):
 
 MASTER_TIFF_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
 JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
-class MasterTiff(CommonMetadatDO):
+class MasterImage(CommonMetadatDO):
     CONTENT_MODELS = [ MASTER_TIFF_CONTENT_MODEL, JP2_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    master = FileDatastream("MASTER", "Master Tiff Image File", defaults={
+    master = FileDatastream("MASTER", "Master Image File", defaults={
         'versionable': True,
         'control_group': 'M',
         'mimetype': 'image/tiff',
         })
 
-    master_colorbar = FileDatastream("MASTER-COLORBAR", "Master Tiff Image File with the Colorbar", defaults={
+    master_colorbar = FileDatastream("MASTER-COLORBAR", "Master Image File with the Colorbar", defaults={
         'versionable': True,
         'control_group': 'M',
         'mimetype': 'image/tiff',
         })
 
-    jp2 = FileDatastream("JP2", "JP2 version of the MASTER tiff.  Suitable for further dissemination", defaults={
+    jp2 = FileDatastream("JP2", "JP2 version of the MASTER image.  Suitable for further dissemination", defaults={
         'versionable': True,
         'control_group': 'M',
         'mimetype': 'image/jp2',
@@ -92,3 +92,6 @@ class AudioMP3(CommonMetadatDO):
         'mimetype': 'audio/mpeg',
         })
 
+IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
+class ImplicitSet(CommonMetadatDO):
+    CONTENT_MODELS = [ IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]

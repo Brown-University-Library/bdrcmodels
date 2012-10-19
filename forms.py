@@ -10,8 +10,8 @@ class DublinCoreEditForm(XmlObjectForm):
         model = DublinCore
         fields = ['title', 'creator', 'date']
 
-class UploadMasterTiffForm(forms.Form):
-    """Upload form for MasterTiff Objects"""
+class UploadMasterImageForm(forms.Form):
+    """Upload form for MasterImage Objects"""
     label = forms.CharField(max_length=255, # fedora label maxes out at 255 characters
                 help_text='Preliminary title for the new object. 255 characters max.')
     modsFile = forms.FileField(label="MODS")
