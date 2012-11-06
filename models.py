@@ -23,7 +23,7 @@ CONTENT_MODEL_BASE_PID = 'bdr-cmodel'
 CONTENT_MODEL_BASE_URI = 'info:fedora/%s' % CONTENT_MODEL_BASE_PID
 
 COMMON_METADATA_CONTENT_MODEL = "%s:commonMetadata" % CONTENT_MODEL_BASE_URI
-class CommonMetadatDO(DigitalObject):
+class CommonMetadataDO(DigitalObject):
     CONTENT_MODELS = [COMMON_METADATA_CONTENT_MODEL]
 
     rels_int= XmlDatastream("RELS-INT", "Internal Datastream Relations", rels.RelsInt, defaults={
@@ -51,7 +51,7 @@ class CommonMetadatDO(DigitalObject):
 
 MASTER_TIFF_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
 JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
-class MasterImage(CommonMetadatDO):
+class MasterImage(CommonMetadataDO):
     CONTENT_MODELS = [ MASTER_TIFF_CONTENT_MODEL, JP2_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
     master = FileDatastream("MASTER", "Master Image File", defaults={
@@ -73,7 +73,7 @@ class MasterImage(CommonMetadatDO):
         })
 
 PDF_CONTENT_MODEL = '%s:pdf' % CONTENT_MODEL_BASE_URI
-class PDFDigitalObject(CommonMetadatDO):
+class PDFDigitalObject(CommonMetadataDO):
     CONTENT_MODELS = [ PDF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
     pdf = FileDatastream("PDF", "PDF Document", defaults={
@@ -83,7 +83,7 @@ class PDFDigitalObject(CommonMetadatDO):
         })
 
 MP3_CONTENT_MODEL = '%s:mp3' % CONTENT_MODEL_BASE_URI
-class AudioMP3(CommonMetadatDO):
+class AudioMP3(CommonMetadataDO):
     CONTENT_MODELS = [ MP3_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
     mp3 = FileDatastream("MP3", "MP3 Audio File", defaults={
@@ -93,5 +93,5 @@ class AudioMP3(CommonMetadatDO):
         })
 
 IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
-class ImplicitSet(CommonMetadatDO):
+class ImplicitSet(CommonMetadataDO):
     CONTENT_MODELS = [ IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
