@@ -12,6 +12,10 @@ def choose_content_model(ds_list):
         return AudioMP3
     elif "PDF" in ds_list:
         return PDFDigitalObject
+    elif "JP2" in ds_list:
+        return JP2Image
+    elif "JPG" in ds_list:
+        return JPGImage
     elif "MASTER-COLORBAR" in ds_list:
         return MasterImage
     elif "MASTER" in ds_list:
@@ -49,10 +53,19 @@ class CommonMetadataDO(DigitalObject):
         'versionable': True,
         })
 
-MASTER_TIFF_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
-JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
+    def convert_mods_to_external( self ):
+        """Convert the mods datastream to be an external reference"""
+        #del self.mods
+        self.mods = XmlDatastream('MODS', "MODS metadata", mods.Mods,  defaults={
+            'control_group': 'E',
+            'format' : mods.MODS_NAMESPACE,
+            'versionable': True,
+            })
+        return self
+
+MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
 class MasterImage(CommonMetadataDO):
-    CONTENT_MODELS = [ MASTER_TIFF_CONTENT_MODEL, JP2_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    CONTENT_MODELS = [ MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
     master = FileDatastream("MASTER", "Master Image File", defaults={
         'versionable': True,
@@ -66,10 +79,23 @@ class MasterImage(CommonMetadataDO):
         'mimetype': 'image/tiff',
         })
 
+JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
+class JP2Image(MasterImage):
+    CONTENT_MODELS = [ JP2_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
     jp2 = FileDatastream("JP2", "JP2 version of the MASTER image.  Suitable for further dissemination", defaults={
         'versionable': True,
         'control_group': 'M',
         'mimetype': 'image/jp2',
+        })
+
+
+JPG_CONTENT_MODEL = '%s:jpg' % CONTENT_MODEL_BASE_URI
+class JPGImage(MasterImage):
+    CONTENT_MODELS = [ JPG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    jpg = FileDatastream("jpg", "JPG version of the MASTER image. Suitable for further dissemination", defaults={
+        'versionable': True,
+        'control_group': 'M',
+        'mimetype': 'image/jpeg',
         })
 
 PDF_CONTENT_MODEL = '%s:pdf' % CONTENT_MODEL_BASE_URI
@@ -95,3 +121,5 @@ class AudioMP3(CommonMetadataDO):
 IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
 class ImplicitSet(CommonMetadataDO):
     CONTENT_MODELS = [ IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+   
