@@ -2,6 +2,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from forms import UploadMasterImageForm
+from forms import DublinCoreEditForm
 from models import *
 
 from eulfedora.server import Repository
@@ -35,3 +36,20 @@ def display(request, pid):
     obj = repo.get_object(pid )
     return render_to_response('repo/display.html',{'obj':obj})
 
+def edit( request, pid):
+    repo = Repository()
+    obj = repo.get_object(pid, type=CommonMetadataDO )
+    if request.method == "POST":
+        form = DublinCoreEditForm(request.POST, instance=obj.dc.content)
+        if form.is_valid():
+            form.update_instance()
+            obj.save()
+    elif request.method == 'GET':
+        form = DublinCoreEditForm(instance=obj.dc.content)
+    return render_to_response('repo/edit.html', {'form':form, 'obj' : obj}, context_instance=RequestContext(request))
+
+def test(request):
+    repo = Repository()
+    obj = repo.get_object('test:100', type=CommonMetadataDO )
+    form = DublinCoreEditForm(instance=obj.dc.content)
+    return render_to_response('repo/test.html', context_instance=RequestContext(request))
