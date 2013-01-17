@@ -1,9 +1,12 @@
 #from django.db import models
-from eulfedora.models import DigitalObject, FileDatastream, XmlDatastream, RdfDatastream
+from eulfedora.models import DigitalObject, FileDatastream, XmlDatastream, Relation
 from bdrxml import rights
 from bdrxml import irMetadata
 from bdrxml import mods
 from bdrxml import rels
+from rdflib import URIRef, XSD
+from rdflib.namespace import Namespace
+from eulfedora.rdfns import relsext as relsextns
 
 # Create your models here.
 
@@ -28,10 +31,8 @@ def choose_content_model(ds_list):
 CONTENT_MODEL_BASE_PID = 'bdr-cmodel'
 CONTENT_MODEL_BASE_URI = 'info:fedora/%s' % CONTENT_MODEL_BASE_PID
 
-from rdflib import XSD, URIRef
-from rdflib.namespace import Namespace
 pagination = "http://library.brown.edu:hasPagination"
-LIBNS = Namespace(URIRef("http://library.brown.edu"))
+LIBNS = Namespace(URIRef("http://library.brown.edu/#"))
 
 
 COMMON_METADATA_CONTENT_MODEL = "%s:commonMetadata" % CONTENT_MODEL_BASE_URI
@@ -39,6 +40,8 @@ COMMON_METADATA_CONTENT_MODEL = "%s:commonMetadata" % CONTENT_MODEL_BASE_URI
 
 class CommonMetadataDO(DigitalObject):
     CONTENT_MODELS = [COMMON_METADATA_CONTENT_MODEL]
+    owning_collection = Relation(relsextns.isMemberOf, type="self")
+    page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS}, rdf_type=XSD.int)
 
     rels_int = XmlDatastream(
         "RELS-INT",
@@ -87,6 +90,8 @@ class CommonMetadataDO(DigitalObject):
         return self
 
 MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
+
+
 class MasterImage(CommonMetadataDO):
     CONTENT_MODELS = [MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
@@ -107,6 +112,8 @@ class MasterImage(CommonMetadataDO):
                                      )
 
 JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
+
+
 class JP2Image(MasterImage):
     CONTENT_MODELS = [JP2_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
     jp2 = FileDatastream("JP2", "JP2 version of the MASTER image.  Suitable for further dissemination",
@@ -119,6 +126,8 @@ class JP2Image(MasterImage):
 
 
 JPG_CONTENT_MODEL = '%s:jpg' % CONTENT_MODEL_BASE_URI
+
+
 class JPGImage(MasterImage):
     CONTENT_MODELS = [JPG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
     jpg = FileDatastream("jpg", "JPG version of the MASTER image. Suitable for further dissemination",
@@ -130,6 +139,8 @@ class JPGImage(MasterImage):
                          )
 
 PDF_CONTENT_MODEL = '%s:pdf' % CONTENT_MODEL_BASE_URI
+
+
 class PDFDigitalObject(CommonMetadataDO):
     CONTENT_MODELS = [PDF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
@@ -142,6 +153,8 @@ class PDFDigitalObject(CommonMetadataDO):
                          )
 
 MP3_CONTENT_MODEL = '%s:mp3' % CONTENT_MODEL_BASE_URI
+
+
 class AudioMP3(CommonMetadataDO):
     CONTENT_MODELS = [MP3_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
@@ -154,5 +167,7 @@ class AudioMP3(CommonMetadataDO):
                          )
 
 IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
+
+
 class ImplicitSet(CommonMetadataDO):
     CONTENT_MODELS = [IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
