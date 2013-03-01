@@ -27,6 +27,8 @@ def choose_content_model(ds_list):
         return MasterImage
     elif "ZIP" in ds_list:
         return ZippedArchive
+    elif "DOC" in ds_list:
+        return DocFile
     else:
         return ImplicitSet
 
@@ -179,6 +181,20 @@ class ZippedArchive(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'application/zip',
+                         }
+                         )
+
+DOC_CONTENT_MODEL = '%s:doc' % CONTENT_MODEL_BASE_URI
+
+
+class DocFile(CommonMetadataDO):
+    CONTENT_MODELS = [DOC_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    doc = FileDatastream("DOC", "Doc File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/msword',
                          }
                          )
 
