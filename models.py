@@ -25,6 +25,8 @@ def choose_content_model(ds_list):
         return MasterImage
     elif "MASTER" in ds_list:
         return MasterImage
+    elif "ZIP" in ds_list:
+        return ZippedArchive
     else:
         return ImplicitSet
 
@@ -163,6 +165,20 @@ class AudioMP3(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'audio/mpeg',
+                         }
+                         )
+
+ZIP_CONTENT_MODEL = '%s:zip' % CONTENT_MODEL_BASE_URI
+
+
+class ZippedArchive(CommonMetadataDO):
+    CONTENT_MODELS = [ZIP_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    zip = FileDatastream("ZIP", "Zipped Archive",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/zip',
                          }
                          )
 
