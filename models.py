@@ -29,6 +29,8 @@ def choose_content_model(ds_list):
         return ZippedArchive
     elif "DOC" in ds_list:
         return DocFile
+    elif "PNG" in ds_list:
+        return PNGImage
     else:
         return ImplicitSet
 
@@ -139,6 +141,19 @@ class JPGImage(MasterImage):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'image/jpeg',
+                         }
+                         )
+
+PNG_CONTENT_MODEL = '%s:png' % CONTENT_MODEL_BASE_URI
+
+
+class PNGImage(MasterImage):
+    CONTENT_MODELS = [PNG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    png = FileDatastream("png", "PNG image",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'image/png',
                          }
                          )
 
