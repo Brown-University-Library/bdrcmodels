@@ -17,6 +17,8 @@ def choose_content_model(ds_list):
         return AudioMP3
     elif "MOV" in ds_list:
         return VideoMOV
+    elif "M4V" in ds_list:
+        return VideoM4V
     elif "PDF" in ds_list:
         return PDFDigitalObject
     elif "JP2" in ds_list:
@@ -169,6 +171,19 @@ class VideoMOV(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'video/quicktime',
+                         }
+                         )
+
+M4V_CONTENT_MODEL = '%s:m4v' % CONTENT_MODEL_BASE_URI
+
+
+class VideoM4V(CommonMetadataDO):
+    CONTENT_MODELS = [M4V_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    mov = FileDatastream("m4v", "M4V video",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'video/x-m4v',
                          }
                          )
 
