@@ -15,6 +15,8 @@ def choose_content_model(ds_list):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
     if "MP3" in ds_list:
         return AudioMP3
+    elif "MOV" in ds_list:
+        return VideoMOV
     elif "PDF" in ds_list:
         return PDFDigitalObject
     elif "JP2" in ds_list:
@@ -154,6 +156,19 @@ class PNGImage(MasterImage):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'image/png',
+                         }
+                         )
+
+MOV_CONTENT_MODEL = '%s:mov' % CONTENT_MODEL_BASE_URI
+
+
+class VideoMOV(CommonMetadataDO):
+    CONTENT_MODELS = [MOV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    mov = FileDatastream("mov", "Quicktime MOV video",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'video/quicktime',
                          }
                          )
 
