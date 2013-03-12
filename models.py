@@ -15,6 +15,8 @@ def choose_content_model(ds_list):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
     if "MP3" in ds_list:
         return AudioMP3
+    elif "MP4" in ds_list:
+        return VideoMP4
     elif "MOV" in ds_list:
         return VideoMOV
     elif "M4V" in ds_list:
@@ -184,6 +186,19 @@ class VideoM4V(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'video/x-m4v',
+                         }
+                         )
+
+MP4_CONTENT_MODEL = '%s:mp4' % CONTENT_MODEL_BASE_URI
+
+
+class VideoMP4(CommonMetadataDO):
+    CONTENT_MODELS = [MP4_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    mov = FileDatastream("mp4", "MP4 video",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'video/mp4',
                          }
                          )
 
