@@ -181,7 +181,7 @@ M4V_CONTENT_MODEL = '%s:m4v' % CONTENT_MODEL_BASE_URI
 
 class VideoM4V(CommonMetadataDO):
     CONTENT_MODELS = [M4V_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    mov = FileDatastream("m4v", "M4V video",
+    m4v = FileDatastream("m4v", "M4V video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -194,7 +194,7 @@ MP4_CONTENT_MODEL = '%s:mp4' % CONTENT_MODEL_BASE_URI
 
 class VideoMP4(CommonMetadataDO):
     CONTENT_MODELS = [MP4_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    mov = FileDatastream("mp4", "MP4 video",
+    mp4 = FileDatastream("mp4", "MP4 video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
