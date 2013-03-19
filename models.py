@@ -4,7 +4,7 @@ from bdrxml import rights
 from bdrxml import irMetadata
 from bdrxml import mods
 from bdrxml import rels
-from rdflib import URIRef, XSD
+from rdflib import URIRef
 from rdflib.namespace import Namespace
 from eulfedora.rdfns import relsext as relsextns
 
@@ -53,7 +53,8 @@ COMMON_METADATA_CONTENT_MODEL = "%s:commonMetadata" % CONTENT_MODEL_BASE_URI
 class CommonMetadataDO(DigitalObject):
     CONTENT_MODELS = [COMMON_METADATA_CONTENT_MODEL]
     owning_collection = Relation(relsextns.isMemberOf, type="self")
-    page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS}, rdf_type=XSD.int)
+    isPartOf = Relation(relsextns.isPartOf, type="self")
+    page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS})
 
     rels_int = XmlDatastream(
         "RELS-INT",
