@@ -259,6 +259,15 @@ class DocFile(CommonMetadataDO):
                          }
                          )
 
+STREAMING_CONTENT_MODEL = '%s:stream' % CONTENT_MODEL_BASE_URI
+
+
+class StreamingFile(CommonMetadataDO):
+    CONTENT_MODELS = [STREAMING_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    isDerivationOf = Relation(relsextns.isDerivationOf, type="self")
+    stream_uri = Relation(LIBNS.hasStream, ns_prefix={"bul-rel": LIBNS})
+
+
 IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
 
 
