@@ -268,6 +268,22 @@ class StreamingFile(CommonMetadataDO):
     stream_uri = Relation(LIBNS.hasStream, ns_prefix={"bul-rel": LIBNS})
 
 
+ANNOTATION_CONTENT_MODEL = '%s:annotation' % CONTENT_MODEL_BASE_URI
+
+
+class Annotation(CommonMetadataDO):
+    CONTENT_MODELS = [ANNOTATION_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    isAnnotationOf = Relation(relsextns.isAnnotationOf, type="self")
+
+    annotation = FileDatastream("annotation", "Annotation File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'text/xml',
+                         }
+                         )
+
+
 IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
 
 
