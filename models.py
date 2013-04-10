@@ -275,7 +275,7 @@ class Annotation(CommonMetadataDO):
     CONTENT_MODELS = [ANNOTATION_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
     isAnnotationOf = Relation(relsextns.isAnnotationOf, type="self")
 
-    annotation = FileDatastream("annotation", "Annotation File",
+    content = FileDatastream("content", "Annotation File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
