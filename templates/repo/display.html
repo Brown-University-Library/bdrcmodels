@@ -1,39 +1,14 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-<h1>{{ obj.label }}</h1>
-{% comment %}
-<table>
-    <tr><th>pid:</th><td> {{ obj.pid }}</td></tr>
-    {% with obj.dc.content as dc %}
-        <tr><th>title:</th><td>{{ dc.title }}</td></tr>
-        <tr><th>creator:</th><td>{{ dc.creator|default:'' }}</td></tr>
-        <tr><th>date:</th><td>{{ dc.date|default:'' }}</td></tr>
-
-        <p>Uploaded at {{ obj.created }}; last modified {{ obj.modified }}
-   ({{  obj.modified|timesince }} ago).</p>
- {% endwith %}
-{% endcomment %}
-</table>
-<hr/>
-<h2>Dublin Core</h2>
-<pre>{{ obj.dc.content.serialize }}</pre>
-<!--<hr/>-->
-<!--<h2>RELS-EXT</h2>-->
-<!--<pre>{{ obj.rels_ext.content.serialize }}</pre>-->
-<!--<hr/>-->
-<!--<h2>MODS</h2>-->
-<!--<pre>{{ obj.mods.content.serialize }}</pre>-->
-<!--<hr/>-->
-<!--<h2>irMetadata</h2>-->
-<!--<pre>{{ obj.irMD.content.serialize }}</pre>-->
-<!--<hr/>-->
-<!--<h2>rightsMetadata</h2>-->
-<!--<pre>{{ obj.rightsMD.content.serialize }}</pre>-->
-  
-</body>
-</html>
+{% extends 'bootstrap_base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/thumbnail-scaling.css">
+{% endblock %}
+{% block content %}
+<h1>{{ obj.label }} - {{ obj.pid}}</h1>
+<h2>Datastreams</h2>
+<ul>
+    {% for k,v in obj.ds_list.items %}
+    <li><a href="{{k}}/">{{k}}</a> | <a href="{{k}}/edit/">Edit</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
