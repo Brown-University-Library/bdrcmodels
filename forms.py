@@ -29,6 +29,9 @@ class UploadMasterImageForm(forms.Form):
 class EditIRMetadataForm(forms.Form):
     pass
 
+class RepoLandingForm(forms.Form):
+    pid = forms.CharField(error_messages={'required': 'Please enter a pid'})
+
 class RightsMetadataEditForm(forms.Form):
     rights_choices = [
         ('PUBLIC', 'Public'),

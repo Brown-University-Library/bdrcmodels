@@ -4,6 +4,7 @@ from eulfedora.views import raw_datastream, raw_audit_trail
 
 urlpatterns = patterns(
     'repo.views',
+    url('^$', 'landing', name='landing'),
     url('^upload/$', 'upload', name='upload'),
     url(r'^(?P<pid>[^/]+)/$', 'display', name='display'),
     url(r'^(?P<pid>[^/]+)/(?P<dsid>(MODS|RELS-EXT|DC|METS|RELS-INT))/edit/$', 'xml_edit', name='xml-edit'),

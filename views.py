@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from eulfedora.server import Repository
 from .models import MasterImage
 from .models import CommonMetadataDO
@@ -12,8 +13,20 @@ from .models import CommonMetadataDO
 from .forms import UploadMasterImageForm
 from .forms import DublinCoreEditForm
 from .forms import RightsMetadataEditForm
+from .forms import RepoLandingForm
 from common.utilities import assign_rightsMetadata
 import requests
+
+def landing(request):
+    """Landing page for this repository interface"""
+    if request.method == "POST":
+        form = RepoLandingForm(request.POST)
+        if form.is_valid():
+            pid = form.cleaned_data['pid']
+        return HttpResponseRedirect(reverse("repo:display", args=(pid,)))
+    elif request.method == 'GET':
+        form = RepoLandingForm()
+        return render_to_response('repo/landing.html', {'form': form}, context_instance=RequestContext(request))
 
 
 def upload(request):
@@ -49,7 +62,7 @@ def upload(request):
 
 def display(request, pid):
     repo = Repository()
-    obj = repo.get_object(pid)
+    obj = repo.get_object(pid, create=False)
     return render(request, 'repo/display.html', {'obj': obj})
 
 @login_required
@@ -76,6 +89,7 @@ def rights_edit(request, pid, dsid):
             obj = repo.get_object(pid, type=CommonMetadataDO)
             obj = assign_rightsMetadata(obj, new_rights)
             obj.save()
+            messages.info(request, 'The sharing setting for %s have been set to %s' % (pid, new_rights) )
         return HttpResponseRedirect(reverse("repo:display", args=(pid,)))
     elif request.method == 'GET':
         form = RightsMetadataEditForm()
