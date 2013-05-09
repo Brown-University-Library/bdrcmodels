@@ -1,7 +1,9 @@
 """ Create your views here."""
 from django.shortcuts import render_to_response
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from eulfedora.server import Repository
 from .models import MasterImage
@@ -10,6 +12,8 @@ from .models import CommonMetadataDO
 from .forms import UploadMasterImageForm
 from .forms import DublinCoreEditForm
 from .forms import RightsMetadataEditForm
+from common.utilities import assign_rightsMetadata
+import requests
 
 
 def upload(request):
@@ -69,6 +73,10 @@ def rights_edit(request, pid, dsid):
         form = RightsMetadataEditForm(request.POST)
         if form.is_valid():
             new_rights = form.cleaned_data['rights']
+            obj = repo.get_object(pid, type=CommonMetadataDO)
+            obj = assign_rightsMetadata(obj, new_rights)
+            obj.save()
+        return HttpResponseRedirect(reverse("repo:display", args=(pid,)))
     elif request.method == 'GET':
         form = RightsMetadataEditForm()
         return render_to_response('repo/edit.html', {'form': form, 'obj': obj, 'dsid': "RightsMetadata"}, context_instance=RequestContext(request))
@@ -86,10 +94,14 @@ def xml_edit(request, pid, dsid):
                 datastream_obj.content = form.cleaned_data['xml_content']
                 datastream_obj.save()
             obj.save()
+            return HttpResponseRedirect(reverse("repo:display", args=(pid,)))
     elif request.method == 'GET':
         if dsid in obj.ds_list:
             datastream_obj = obj.getDatastreamObject(dsid)
-            xml_content = datastream_obj.content.serialize()
+            if dsid in ["MODS",]:
+                xml_content = datastream_obj.content
+            else:
+                xml_content = datastream_obj.content.serialize()
         else:
             xml_content = "No datastream found"
         form = EditXMLForm({'xml_content': xml_content})
