@@ -3,6 +3,7 @@ from eulfedora.models import DigitalObject, FileDatastream, XmlDatastream, Relat
 from bdrxml import rights
 from bdrxml import irMetadata
 from bdrxml import mods
+from bdrxml import mets
 from bdrxml import rels
 from rdflib import URIRef
 from rdflib.namespace import Namespace
@@ -101,6 +102,34 @@ class CommonMetadataDO(DigitalObject):
                                   }
                                   )
         return self
+
+
+LEGACY_METADATA_CONTENT_MODEL = "%s:legacyMetadata" % CONTENT_MODEL_BASE_URI
+
+class LegacyMetadataDO(DigitalObject):
+    CONTENT_MODELS = [LEGACY_METADATA_CONTENT_MODEL]
+    owning_collection = Relation(relsextns.isMemberOf, type="self")
+    isPartOf = Relation(relsextns.isPartOf, type="self")
+    page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS})
+
+    rels_int = XmlDatastream(
+        "RELS-INT",
+        "Internal Datastream Relations",
+        rels.RelsInt,
+        defaults={
+            'control_group': 'X',
+            'format': 'info:fedora/fedora-system:FedoraRELSInt-1.0',
+            'versionable': True,
+        }
+    )
+
+    mets = XmlDatastream('METS', "METS metadata", mets.METS_NAMESPACE,
+                         defaults={
+                             'control_group': 'M',
+                             'format': mets.METS_NAMESPACE,
+                             'versionable': True,
+                         }
+                         )
 
 MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
 
