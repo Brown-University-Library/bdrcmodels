@@ -123,7 +123,7 @@ class LegacyMetadataDO(DigitalObject):
         }
     )
 
-    mets = XmlDatastream('METS', "METS metadata", mets.METS_NAMESPACE,
+    mets = XmlDatastream('METS', "METS metadata", mets.BDRMets,
                          defaults={
                              'control_group': 'M',
                              'format': mets.METS_NAMESPACE,
