@@ -153,6 +153,14 @@ class MasterImage(CommonMetadataDO):
                                      }
                                      )
 
+    thumbnail = FileDatastream("thumbnail", "Thumbnail Image",
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                                'mimetype': 'image/jpeg',
+                            }
+                            )
+
 JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
 
 
