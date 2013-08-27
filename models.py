@@ -245,6 +245,16 @@ class PDFDigitalObject(CommonMetadataDO):
                              'mimetype': 'application/pdf',
                          }
                          )
+class PDFLegacy(LegacyMetadataDO):
+    CONTENT_MODELS = [PDF_CONTENT_MODEL, LEGACY_METADATA_CONTENT_MODEL]
+
+    pdf = FileDatastream("PDF", "PDF Document",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/pdf',
+                         }
+                         )
 
 MP3_CONTENT_MODEL = '%s:mp3' % CONTENT_MODEL_BASE_URI
 
@@ -309,6 +319,19 @@ class Annotation(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'text/xml',
+                         }
+                         )
+
+BLOB_CONTENT_MODEL = '%s:blob' % CONTENT_MODEL_BASE_URI
+
+class BlobLegacy(LegacyMetadataDO):
+    CONTENT_MODELS = [BLOB_CONTENT_MODEL, LEGACY_METADATA_CONTENT_MODEL]
+
+    blob = FileDatastream("BLOB", "Any application file",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/octet-stream',
                          }
                          )
 
