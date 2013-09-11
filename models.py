@@ -332,6 +332,17 @@ class Annotation(CommonMetadataDO):
 
 BLOB_CONTENT_MODEL = '%s:blob' % CONTENT_MODEL_BASE_URI
 
+class Blob(CommonMetadataDO):
+    CONTENT_MODELS = [BLOB_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    blob = FileDatastream("BLOB", "Any application file",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/octet-stream',
+                         }
+                         )
+
 class BlobLegacy(LegacyMetadataDO):
     CONTENT_MODELS = [BLOB_CONTENT_MODEL, LEGACY_METADATA_CONTENT_MODEL]
 
