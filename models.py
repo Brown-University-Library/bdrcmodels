@@ -41,6 +41,40 @@ def choose_content_model(ds_list):
     else:
         return ImplicitSet
 
+
+def get_cmodel_info(extension=None, content_type=None):
+    #this is a function for a single file upload for the APIs
+    #defaults to Undetermined cmodel
+    cmodel = Undetermined
+    content_member_name = 'content'
+    content_ds_name = 'content'
+    if extension:
+        extension = extension.lower()
+    if content_type:
+        content_type = content_type.lower()
+    if extension == 'pdf' or content_type == 'application/pdf':
+        cmodel = PDFDigitalObject
+        content_member_name = 'pdf'
+        content_ds_name = 'PDF'
+    elif extension == 'm4v':
+        cmodel = VideoM4V
+        content_member_name = 'm4v'
+        content_ds_name = 'm4v'
+    elif extension == 'mov':
+        cmodel = VideoMOV
+        content_member_name = 'mov'
+        content_ds_name = 'mov'
+    elif extension == 'doc':
+        cmodel = DocFile
+        content_member_name = 'doc'
+        content_ds_name = 'DOC'
+    elif extension == 'mp3':
+        cmodel = AudioMP3
+        content_member_name = 'mp3'
+        content_ds_name = 'MP3'
+    return (cmodel, content_member_name, content_ds_name)
+
+
 CONTENT_MODEL_BASE_PID = 'bdr-cmodel'
 CONTENT_MODEL_BASE_URI = 'info:fedora/%s' % CONTENT_MODEL_BASE_PID
 
@@ -327,6 +361,19 @@ class Annotation(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'text/xml',
+                         }
+                         )
+
+UNDETERMINED_CONTENT_MODEL = '%s:undetermined' % CONTENT_MODEL_BASE_URI
+
+class Undetermined(CommonMetadataDO):
+    CONTENT_MODELS = [UNDETERMINED_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = FileDatastream("content", "Any application file",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/octet-stream',
                          }
                          )
 
