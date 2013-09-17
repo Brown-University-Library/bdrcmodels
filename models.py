@@ -72,6 +72,14 @@ def get_cmodel_info(extension=None, content_type=None):
         cmodel = AudioMP3
         content_member_name = 'mp3'
         content_ds_name = 'MP3'
+    elif extension == 'jpg':
+        cmodel = JPG
+        content_member_name = 'jpg'
+        content_ds_name = 'jpg'
+    elif extension == 'jp2':
+        cmodel = JP2
+        content_member_name = 'jp2'
+        content_ds_name = 'JP2'
     return (cmodel, content_member_name, content_ds_name)
 
 
@@ -197,7 +205,6 @@ class MasterImage(CommonMetadataDO):
 
 JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
 
-
 class JP2Image(MasterImage):
     CONTENT_MODELS = [JP2_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
     jp2 = FileDatastream("JP2", "JP2 version of the MASTER image.  Suitable for further dissemination",
@@ -208,9 +215,18 @@ class JP2Image(MasterImage):
                          }
                          )
 
+class JP2(CommonMetadataDO):
+    CONTENT_MODELS = [JP2_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    jp2 = FileDatastream("JP2", "JP2 image.",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'image/jp2',
+                         }
+                         )
+
 
 JPG_CONTENT_MODEL = '%s:jpg' % CONTENT_MODEL_BASE_URI
-
 
 class JPGImage(MasterImage):
     CONTENT_MODELS = [JPG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
@@ -221,6 +237,17 @@ class JPGImage(MasterImage):
                              'mimetype': 'image/jpeg',
                          }
                          )
+
+class JPG(CommonMetadataDO):
+    CONTENT_MODELS = [JPG_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    jpg = FileDatastream("jpg", "JPG image.",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'image/jpeg',
+                         }
+                         )
+
 
 PNG_CONTENT_MODEL = '%s:png' % CONTENT_MODEL_BASE_URI
 
