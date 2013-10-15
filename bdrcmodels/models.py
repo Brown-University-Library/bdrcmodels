@@ -31,6 +31,8 @@ def choose_content_model(ds_list):
         return MasterImage
     elif "ZIP" in ds_list:
         return ZippedArchive
+    elif "TEI" in ds_list:
+        return TeiFile
     elif "DOC" in ds_list:
         return DocFile
     elif "PNG" in ds_list:
@@ -77,6 +79,10 @@ def get_cmodel_info(extension=None, content_type=None):
         cmodel = JP2
         content_member_name = 'jp2'
         content_ds_name = 'JP2'
+    elif content_type == 'application/tei+xml':
+        cmodel = TeiFile
+        content_member_name = 'tei'
+        content_ds_name = 'TEI'
     return (cmodel, content_member_name, content_ds_name)
 
 
@@ -347,6 +353,20 @@ class ZippedArchive(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'application/zip',
+                         }
+                         )
+
+TEI_CONTENT_MODEL = '%s:tei' % CONTENT_MODEL_BASE_URI
+
+
+class TeiFile(CommonMetadataDO):
+    CONTENT_MODELS = [TEI_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    tei = FileDatastream("TEI", "TEI File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/tei+xml',
                          }
                          )
 
