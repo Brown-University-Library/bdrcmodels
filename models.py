@@ -1,4 +1,3 @@
-#from django.db import models
 from eulfedora.models import DigitalObject, FileDatastream, XmlDatastream, Relation
 from bdrxml import rights
 from bdrxml import irMetadata
@@ -8,8 +7,6 @@ from bdrxml import rels
 from rdflib import URIRef
 from rdflib.namespace import Namespace
 from eulfedora.rdfns import relsext as relsextns
-
-# Create your models here.
 
 
 def choose_content_model(ds_list):
@@ -128,7 +125,7 @@ class CommonMetadataDO(DigitalObject):
     mods = XmlDatastream('MODS', "MODS metadata", mods.Mods,
                          defaults={
                              'control_group': 'M',
-                             'format': mods.eulmods.MODS_NAMESPACE,
+                             'format': mods.MODS_NAMESPACE,
                              'versionable': True,
                          }
                          )
