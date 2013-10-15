@@ -128,7 +128,7 @@ class CommonMetadataDO(DigitalObject):
     mods = XmlDatastream('MODS', "MODS metadata", mods.Mods,
                          defaults={
                              'control_group': 'M',
-                             'format': mods.MODS_NAMESPACE,
+                             'format': mods.eulmods.MODS_NAMESPACE,
                              'versionable': True,
                          }
                          )

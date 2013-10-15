@@ -36,3 +36,4 @@ nosetests.xml
 .pydevproject
 
 defaultMD.py
+templates/repo/digiarts_list.html
