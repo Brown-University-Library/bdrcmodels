@@ -135,6 +135,13 @@ class CommonMetadataDO(DigitalObject):
                              'versionable': True,
                          }
                          )
+    archive_mets = XmlDatastream('archiveMETS', "old METS metadata", mets.BDRMets,
+                         defaults={
+                             'control_group': 'M',
+                             'format': mets.METS_NAMESPACE,
+                             'versionable': True,
+                         }
+                         )
 
     def convert_mods_to_external(self):
         """Convert the mods datastream to be an external reference"""
