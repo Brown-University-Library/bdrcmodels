@@ -349,6 +349,34 @@ class AudioMP3(CommonMetadataDO):
                          }
                          )
 
+AIFF_CONTENT_MODEL = '%s:aiff' % CONTENT_MODEL_BASE_URI
+
+
+class AudioAIFF(CommonMetadataDO):
+    CONTENT_MODELS = [AIFF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    aiff = FileDatastream("AIFF", "AIFF Audio File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'audio/aiff',
+                         }
+                         )
+
+WAV_CONTENT_MODEL = '%s:wav' % CONTENT_MODEL_BASE_URI
+
+
+class AudioWAV(CommonMetadataDO):
+    CONTENT_MODELS = [WAV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    wav = FileDatastream("WAV", "WAV Audio File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'audio/wav',
+                         }
+                         )
+
 ZIP_CONTENT_MODEL = '%s:zip' % CONTENT_MODEL_BASE_URI
 
 
