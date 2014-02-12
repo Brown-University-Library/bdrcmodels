@@ -13,6 +13,8 @@ def choose_content_model(ds_list):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
     if "MP3" in ds_list:
         return AudioMP3
+    elif "AUDIO-MASTER" in ds_list:
+        return AudioMaster
     elif "MP4" in ds_list:
         return VideoMP4
     elif "MOV" in ds_list:
@@ -73,7 +75,7 @@ def get_cmodel_info(extension=None, content_type=None):
         content_member_name = 'doc'
         content_ds_name = 'DOC'
     elif extension == 'mp3':
-        cmodel = AudioMP3
+        cmodel = MP3
         content_member_name = 'mp3'
         content_ds_name = 'MP3'
     elif extension == 'wav':
@@ -348,11 +350,26 @@ class PDFLegacy(LegacyMetadataDO):
                          }
                          )
 
+
+AUDIO_MASTER_CONTENT_MODEL = '%s:audioMaster' % CONTENT_MODEL_BASE_URI
+
+
+class AudioMaster(CommonMetadataDO):
+    CONTENT_MODELS = [AUDIO_MASTER_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    
+    audio_master = FileDatastream("AUDIO-MASTER", "Master Audio File",
+                         defaults={
+                            'versionable': True,
+                            'control_group': 'M',
+                            'mimetype': 'audio/wav',
+                          }
+                          )
+
+
 MP3_CONTENT_MODEL = '%s:mp3' % CONTENT_MODEL_BASE_URI
 
-
-class AudioMP3(CommonMetadataDO):
-    CONTENT_MODELS = [MP3_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+class AudioMP3(AudioMaster):
+    CONTENT_MODELS = [MP3_CONTENT_MODEL, AUDIO_MASTER_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
     mp3 = FileDatastream("MP3", "MP3 Audio File",
                          defaults={
@@ -362,8 +379,12 @@ class AudioMP3(CommonMetadataDO):
                          }
                          )
 
-AIFF_CONTENT_MODEL = '%s:aiff' % CONTENT_MODEL_BASE_URI
+class MP3(AudioMP3):
+    '''class for objects that have no audio_master, so they shouldn't have that cmodel'''
+    CONTENT_MODELS = [MP3_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
+
+AIFF_CONTENT_MODEL = '%s:aiff' % CONTENT_MODEL_BASE_URI
 
 class AudioAIFF(CommonMetadataDO):
     CONTENT_MODELS = [AIFF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
