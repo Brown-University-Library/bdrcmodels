@@ -9,38 +9,54 @@ from rdflib.namespace import Namespace
 from eulfedora.rdfns import relsext as relsextns
 
 
-def choose_content_model(ds_list):
+def choose_content_model(ds_list, default_model=None):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
-    if "MP3" in ds_list:
-        return AudioMP3
-    elif "AUDIO-MASTER" in ds_list:
-        return AudioMaster
+    #audio formats
+    if "AUDIO-MASTER" in ds_list:
+        if "MP3" in ds_list:
+            return AudioMP3
+        else:
+            return AudioMaster
+    elif "MP3" in ds_list:
+        return MP3
+    #video formats
     elif "MP4" in ds_list:
         return VideoMP4
     elif "MOV" in ds_list:
         return VideoMOV
     elif "M4V" in ds_list:
         return VideoM4V
+    #handle all the master image content models here
+    elif "MASTER" in ds_list or "MASTER-COLORBAR" in ds_list:
+        if "JP2" in ds_list:
+            return JP2Image
+        elif "JPG" in ds_list:
+            return JPGImage
+        elif "PNG" in ds_list:
+            return PNGImage
+        else:
+            return MasterImage
+    #now handle images by themselves, without a master
+    elif "JP2" in ds_list:
+        return JP2
+    elif "JPG" in ds_list:
+        return JPG
+    elif "PNG" in ds_list:
+        return PNG
+    #other content types
     elif "PDF" in ds_list:
         return PDFDigitalObject
-    elif "JP2" in ds_list:
-        return JP2Image
-    elif "JPG" in ds_list:
-        return JPGImage
-    elif "MASTER-COLORBAR" in ds_list:
-        return MasterImage
-    elif "MASTER" in ds_list:
-        return MasterImage
     elif "ZIP" in ds_list:
         return ZippedArchive
     elif "TEI" in ds_list:
         return TeiFile
     elif "DOC" in ds_list:
         return DocFile
-    elif "PNG" in ds_list:
-        return PNGImage
     else:
-        return ImplicitSet
+        if default_model == 'undetermined':
+            return Undetermined
+        else:
+            return ImplicitSet
 
 
 def get_cmodel_info(extension=None, content_type=None):
@@ -240,15 +256,8 @@ class JP2Image(MasterImage):
                          }
                          )
 
-class JP2(CommonMetadataDO):
+class JP2(JP2Image):
     CONTENT_MODELS = [JP2_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    jp2 = FileDatastream("JP2", "JP2 image.",
-                         defaults={
-                             'versionable': True,
-                             'control_group': 'M',
-                             'mimetype': 'image/jp2',
-                         }
-                         )
 
 
 JPG_CONTENT_MODEL = '%s:jpg' % CONTENT_MODEL_BASE_URI
@@ -263,19 +272,11 @@ class JPGImage(MasterImage):
                          }
                          )
 
-class JPG(CommonMetadataDO):
+class JPG(JPGImage):
     CONTENT_MODELS = [JPG_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    jpg = FileDatastream("jpg", "JPG image.",
-                         defaults={
-                             'versionable': True,
-                             'control_group': 'M',
-                             'mimetype': 'image/jpeg',
-                         }
-                         )
 
 
 PNG_CONTENT_MODEL = '%s:png' % CONTENT_MODEL_BASE_URI
-
 
 class PNGImage(MasterImage):
     CONTENT_MODELS = [PNG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
@@ -287,8 +288,11 @@ class PNGImage(MasterImage):
                          }
                          )
 
-MOV_CONTENT_MODEL = '%s:mov' % CONTENT_MODEL_BASE_URI
+class PNG(PNGImage):
+    CONTENT_MODELS = [PNG_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
+
+MOV_CONTENT_MODEL = '%s:mov' % CONTENT_MODEL_BASE_URI
 
 class VideoMOV(CommonMetadataDO):
     CONTENT_MODELS = [MOV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
