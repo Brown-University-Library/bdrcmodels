@@ -59,64 +59,6 @@ def choose_content_model(ds_list, default_model=None):
             return ImplicitSet
 
 
-def get_cmodel_info(extension=None, content_type=None):
-    #this is a function for a single file upload for the APIs
-    #defaults to Undetermined cmodel
-    cmodel = Undetermined
-    content_member_name = 'content'
-    content_ds_name = 'content'
-    if extension:
-        extension = extension.lower()
-    if content_type:
-        content_type = content_type.lower()
-
-    if extension == 'pdf' or content_type == 'application/pdf':
-        cmodel = PDFDigitalObject
-        content_member_name = 'pdf'
-        content_ds_name = 'PDF'
-    elif extension == 'm4v':
-        cmodel = VideoM4V
-        content_member_name = 'm4v'
-        content_ds_name = 'm4v'
-    elif extension == 'mov':
-        cmodel = VideoMOV
-        content_member_name = 'mov'
-        content_ds_name = 'mov'
-    elif extension == 'mp4':
-        cmodel = VideoMP4
-        content_member_name = 'mp4'
-        content_ds_name = 'mp4'
-    elif extension == 'doc':
-        cmodel = DocFile
-        content_member_name = 'doc'
-        content_ds_name = 'DOC'
-    elif extension == 'mp3':
-        cmodel = MP3
-        content_member_name = 'mp3'
-        content_ds_name = 'MP3'
-    elif extension == 'wav':
-        cmodel = AudioWAV
-        content_member_name = 'wav'
-        content_ds_name = 'WAV'
-    elif extension == 'jpg':
-        cmodel = JPG
-        content_member_name = 'jpg'
-        content_ds_name = 'jpg'
-    elif extension == 'jp2':
-        cmodel = JP2
-        content_member_name = 'jp2'
-        content_ds_name = 'JP2'
-    elif extension == 'zip':
-        cmodel = ZippedArchive
-        content_member_name = 'zip'
-        content_ds_name = 'ZIP'
-    elif content_type == 'application/tei+xml':
-        cmodel = TeiFile
-        content_member_name = 'tei'
-        content_ds_name = 'TEI'
-    return (cmodel, content_member_name, content_ds_name)
-
-
 CONTENT_MODEL_BASE_PID = 'bdr-cmodel'
 CONTENT_MODEL_BASE_URI = 'info:fedora/%s' % CONTENT_MODEL_BASE_PID
 
