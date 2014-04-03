@@ -187,33 +187,6 @@ class CommonMetadataDO(DigitalObject):
         return self
 
 
-LEGACY_METADATA_CONTENT_MODEL = "%s:legacyMetadata" % CONTENT_MODEL_BASE_URI
-
-class LegacyMetadataDO(DigitalObject):
-    CONTENT_MODELS = [LEGACY_METADATA_CONTENT_MODEL]
-    owning_collection = Relation(relsextns.isMemberOf, type="self")
-    isPartOf = Relation(relsextns.isPartOf, type="self")
-    page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS})
-
-    rels_int = XmlDatastream(
-        "RELS-INT",
-        "Internal Datastream Relations",
-        rels.RelsInt,
-        defaults={
-            'control_group': 'X',
-            'format': 'info:fedora/fedora-system:FedoraRELSInt-1.0',
-            'versionable': True,
-        }
-    )
-
-    mets = XmlDatastream('METS', "METS metadata", mets.BDRMets,
-                         defaults={
-                             'control_group': 'M',
-                             'format': mets.METS_NAMESPACE,
-                             'versionable': True,
-                         }
-                         )
-
 MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
 
 
@@ -343,17 +316,6 @@ class PDFDigitalObject(CommonMetadataDO):
                              'mimetype': 'application/pdf',
                          }
                          )
-class PDFLegacy(LegacyMetadataDO):
-    CONTENT_MODELS = [PDF_CONTENT_MODEL, LEGACY_METADATA_CONTENT_MODEL]
-
-    pdf = FileDatastream("PDF", "PDF Document",
-                         defaults={
-                             'versionable': True,
-                             'control_group': 'M',
-                             'mimetype': 'application/pdf',
-                         }
-                         )
-
 
 AUDIO_MASTER_CONTENT_MODEL = '%s:audioMaster' % CONTENT_MODEL_BASE_URI
 
@@ -498,17 +460,6 @@ BLOB_CONTENT_MODEL = '%s:blob' % CONTENT_MODEL_BASE_URI
 
 class Blob(CommonMetadataDO):
     CONTENT_MODELS = [BLOB_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-
-    blob = FileDatastream("BLOB", "Any application file",
-                         defaults={
-                             'versionable': True,
-                             'control_group': 'M',
-                             'mimetype': 'application/octet-stream',
-                         }
-                         )
-
-class BlobLegacy(LegacyMetadataDO):
-    CONTENT_MODELS = [BLOB_CONTENT_MODEL, LEGACY_METADATA_CONTENT_MODEL]
 
     blob = FileDatastream("BLOB", "Any application file",
                          defaults={
