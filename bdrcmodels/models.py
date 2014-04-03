@@ -129,10 +129,16 @@ class CommonMetadataDO(DigitalObject):
         return self
 
 
+IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
+
+class ImplicitSet(CommonMetadataDO):
+    CONTENT_MODELS = [IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+
 BDR_COLLECTION_CONTENT_MODEL = '%s:bdr-collection' % CONTENT_MODEL_BASE_URI
 
 class BDRCollection(CommonMetadataDO):
-    CONTENT_MODELS = [BDR_COLLECTION_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    CONTENT_MODELS = [BDR_COLLECTION_CONTENT_MODEL, IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
 
 MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
@@ -415,11 +421,4 @@ class Blob(CommonMetadataDO):
                              'mimetype': 'application/octet-stream',
                          }
                          )
-
-
-IMPLICIT_SET_CONTENT_MODEL = '%s:implicit-set' % CONTENT_MODEL_BASE_URI
-
-
-class ImplicitSet(CommonMetadataDO):
-    CONTENT_MODELS = [IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
