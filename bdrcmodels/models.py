@@ -396,6 +396,19 @@ class Annotation(CommonMetadataDO):
                          }
                          )
 
+JSON_CONTENT_MODEL = '%s:json' % CONTENT_MODEL_BASE_URI
+
+class JSON(CommonMetadataDO):
+    CONTENT_MODELS = [JSON_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = FileDatastream("content", "JSON file",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/javascript',
+                         }
+                         )
+
 UNDETERMINED_CONTENT_MODEL = '%s:undetermined' % CONTENT_MODEL_BASE_URI
 
 class Undetermined(CommonMetadataDO):
