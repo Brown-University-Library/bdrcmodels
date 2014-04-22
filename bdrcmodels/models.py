@@ -52,6 +52,8 @@ def choose_content_model(ds_list, default_model=None):
         return TeiFile
     elif "DOC" in ds_list:
         return DocFile
+    elif "JSON" in ds_list:
+        return JSON
     else:
         if default_model == 'undetermined':
             return Undetermined
