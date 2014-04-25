@@ -54,6 +54,8 @@ def choose_content_model(ds_list, default_model=None):
         return DocFile
     elif "JSON" in ds_list:
         return JSON
+    elif "XML" in ds_list:
+        return XmlFile
     else:
         if default_model == 'undetermined':
             return Undetermined
@@ -346,8 +348,21 @@ class ZippedArchive(CommonMetadataDO):
                          }
                          )
 
-TEI_CONTENT_MODEL = '%s:tei' % CONTENT_MODEL_BASE_URI
+XML_CONTENT_MODEL = '%s:xml' % CONTENT_MODEL_BASE_URI
 
+class XmlFile(CommonMetadataDO):
+    CONTENT_MODELS = [XML_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = XmlDatastream("XML", "XML File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'text/xml',
+                         }
+                         )
+
+
+TEI_CONTENT_MODEL = '%s:tei' % CONTENT_MODEL_BASE_URI
 
 class TeiFile(CommonMetadataDO):
     CONTENT_MODELS = [TEI_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
