@@ -166,6 +166,14 @@ class MasterImage(CommonMetadataDO):
                                      }
                                      )
 
+    digital_negative = FileDatastream("DIGITAL-NEGATIVE", "Adobe DNG Digital Negative",
+                                     defaults={
+                                         'versionable': True,
+                                         'control_group': 'M',
+                                         'mimetype': 'image/tiff',
+                                     }
+                                     )
+
     thumbnail = FileDatastream("thumbnail", "Thumbnail Image",
                             defaults={
                                 'versionable': True,
