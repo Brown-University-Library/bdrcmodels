@@ -4,6 +4,7 @@ from bdrxml import irMetadata
 from bdrxml import mods
 from bdrxml import mets
 from bdrxml import rels
+from bdrxml import darwincore
 from rdflib import URIRef
 from rdflib.namespace import Namespace
 from eulfedora.rdfns import relsext as relsextns
