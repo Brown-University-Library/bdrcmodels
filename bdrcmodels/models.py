@@ -112,6 +112,13 @@ class CommonMetadataDO(DigitalObject):
                              'versionable': True,
                          }
                          )
+    dwc = XmlDatastream('DWC', "Darwincore metadata", darwincore.SimpleDarwinRecord,
+                         defaults={
+                             'control_group': 'M',
+                             'format': darwincore.DWCNS,
+                             'versionable': True,
+                         }
+                         )
     archive_mets = XmlDatastream('archiveMETS', "old METS metadata", mets.BDRMets,
                          defaults={
                              'control_group': 'M',
