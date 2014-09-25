@@ -113,7 +113,7 @@ class CommonMetadataDO(DigitalObject):
                              'versionable': True,
                          }
                          )
-    dwc = XmlDatastream('DWC', "Darwincore metadata", darwincore.SimpleDarwinRecord,
+    dwc = XmlDatastream('DWC', "Darwincore metadata", darwincore.SimpleDarwinRecordSet,
                          defaults={
                              'control_group': 'M',
                              'format': darwincore.DWCNS,
