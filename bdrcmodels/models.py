@@ -37,9 +37,13 @@ def choose_content_model(ds_list, default_model=None):
             return PNGImage
         else:
             return MasterImage
-    #now handle images by themselves, without a master
     elif "JP2" in ds_list:
-        return JP2
+        if "TIF" in ds_list or "TIFF" in ds_list:
+        #this looks like a master-jp2 setup, without explicit dsIDs
+            return JP2Image
+    #now handle images by themselves, without a master
+        else:
+            return JP2
     elif "JPG" in ds_list:
         return JPG
     elif "PNG" in ds_list:
