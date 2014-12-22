@@ -82,6 +82,7 @@ class CommonMetadataDO(DigitalObject):
     CONTENT_MODELS = [COMMON_METADATA_CONTENT_MODEL]
     owning_collection = Relation(relsextns.isMemberOf, type="self")
     isPartOf = Relation(relsextns.isPartOf, type="self")
+    isAnnotationOf = Relation(relsextns.isAnnotationOf, type="self")
     page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS})
 
     rels_int = XmlDatastream(
