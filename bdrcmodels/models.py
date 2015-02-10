@@ -412,6 +412,8 @@ TXT_CONTENT_MODEL = '%s:txt' % CONTENT_MODEL_BASE_URI
 class TxtFile(CommonMetadataDO):
     CONTENT_MODELS = [TXT_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
+    content_ds_name = 'txt'
+
     txt = FileDatastream("TXT", "Txt File",
                          defaults={
                              'versionable': True,
@@ -425,6 +427,8 @@ CSV_CONTENT_MODEL = '%s:csv' % CONTENT_MODEL_BASE_URI
 
 class CsvFile(CommonMetadataDO):
     CONTENT_MODELS = [CSV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content_ds_name = 'csv'
 
     csv = FileDatastream("CSV", "CSV File",
                          defaults={
@@ -440,6 +444,8 @@ DOC_CONTENT_MODEL = '%s:doc' % CONTENT_MODEL_BASE_URI
 class DocFile(CommonMetadataDO):
     CONTENT_MODELS = [DOC_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
+    content_ds_name = 'doc'
+
     doc = FileDatastream("DOC", "Doc File",
                          defaults={
                              'versionable': True,
@@ -453,6 +459,8 @@ DOCX_CONTENT_MODEL = '%s:docx' % CONTENT_MODEL_BASE_URI
 
 class DocxFile(CommonMetadataDO):
     CONTENT_MODELS = [DOCX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content_ds_name = 'docx'
 
     docx = FileDatastream("DOCX", "Docx File",
                          defaults={
