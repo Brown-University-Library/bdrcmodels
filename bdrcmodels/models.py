@@ -55,8 +55,18 @@ def choose_content_model(ds_list, default_model=None):
         return ZippedArchive
     elif "TEI" in ds_list:
         return TeiFile
+    elif "TXT" in ds_list:
+        return TxtFile
+    elif "CSV" in ds_list:
+        return CsvFile
     elif "DOC" in ds_list:
         return DocFile
+    elif "DOCX" in ds_list:
+        return DocxFile
+    elif "XLS" in ds_list:
+        return XlsFile
+    elif "XLSX" in ds_list:
+        return XlsxFile
     elif "JSON" in ds_list:
         return JSON
     elif "XML" in ds_list:
