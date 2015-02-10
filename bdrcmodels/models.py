@@ -396,8 +396,36 @@ class TeiFile(CommonMetadataDO):
                          }
                          )
 
-DOC_CONTENT_MODEL = '%s:doc' % CONTENT_MODEL_BASE_URI
 
+TXT_CONTENT_MODEL = '%s:txt' % CONTENT_MODEL_BASE_URI
+
+class TxtFile(CommonMetadataDO):
+    CONTENT_MODELS = [TXT_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    txt = FileDatastream("TXT", "Txt File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'text/plain',
+                         }
+                         )
+
+
+CSV_CONTENT_MODEL = '%s:csv' % CONTENT_MODEL_BASE_URI
+
+class CsvFile(CommonMetadataDO):
+    CONTENT_MODELS = [CSV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    csv = FileDatastream("CSV", "CSV File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'text/csv',
+                         }
+                         )
+
+
+DOC_CONTENT_MODEL = '%s:doc' % CONTENT_MODEL_BASE_URI
 
 class DocFile(CommonMetadataDO):
     CONTENT_MODELS = [DOC_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
@@ -409,6 +437,49 @@ class DocFile(CommonMetadataDO):
                              'mimetype': 'application/msword',
                          }
                          )
+
+
+DOCX_CONTENT_MODEL = '%s:docx' % CONTENT_MODEL_BASE_URI
+
+class DocxFile(CommonMetadataDO):
+    CONTENT_MODELS = [DOCX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    docx = FileDatastream("DOCX", "Docx File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                         }
+                         )
+
+
+XLS_CONTENT_MODEL = '%s:xls' % CONTENT_MODEL_BASE_URI
+
+class XlsFile(CommonMetadataDO):
+    CONTENT_MODELS = [XLS_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    xls = FileDatastream("XLS", "XLS File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/vnd.ms-excel',
+                         }
+                         )
+
+
+XLSX_CONTENT_MODEL = '%s:xlsx' % CONTENT_MODEL_BASE_URI
+
+class XlsxFile(CommonMetadataDO):
+    CONTENT_MODELS = [XLSX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    xlsx = FileDatastream("XLSX", "XLSX File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                         }
+                         )
+
 
 STREAMING_CONTENT_MODEL = '%s:stream' % CONTENT_MODEL_BASE_URI
 
@@ -460,6 +531,7 @@ class Undetermined(CommonMetadataDO):
                          }
                          )
 
+#deprecated - use Undetermined instead
 BLOB_CONTENT_MODEL = '%s:blob' % CONTENT_MODEL_BASE_URI
 
 class Blob(CommonMetadataDO):
