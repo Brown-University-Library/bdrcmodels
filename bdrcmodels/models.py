@@ -209,7 +209,7 @@ JP2_CONTENT_MODEL = '%s:jp2' % CONTENT_MODEL_BASE_URI
 
 class JP2Image(MasterImage):
     CONTENT_MODELS = [JP2_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    jp2 = FileDatastream("JP2", "JP2 version of the MASTER image.  Suitable for further dissemination",
+    content = FileDatastream("JP2", "JP2 version of the MASTER image.  Suitable for further dissemination",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -225,7 +225,7 @@ JPG_CONTENT_MODEL = '%s:jpg' % CONTENT_MODEL_BASE_URI
 
 class JPGImage(MasterImage):
     CONTENT_MODELS = [JPG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    jpg = FileDatastream("jpg", "JPG version of the MASTER image. Suitable for further dissemination",
+    content = FileDatastream("jpg", "JPG version of the MASTER image. Suitable for further dissemination",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -241,7 +241,7 @@ PNG_CONTENT_MODEL = '%s:png' % CONTENT_MODEL_BASE_URI
 
 class PNGImage(MasterImage):
     CONTENT_MODELS = [PNG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    png = FileDatastream("png", "PNG image",
+    content = FileDatastream("png", "PNG image",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -257,7 +257,7 @@ MOV_CONTENT_MODEL = '%s:mov' % CONTENT_MODEL_BASE_URI
 
 class VideoMOV(CommonMetadataDO):
     CONTENT_MODELS = [MOV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    mov = FileDatastream("mov", "Quicktime MOV video",
+    content = FileDatastream("mov", "Quicktime MOV video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -270,7 +270,7 @@ M4V_CONTENT_MODEL = '%s:m4v' % CONTENT_MODEL_BASE_URI
 
 class VideoM4V(CommonMetadataDO):
     CONTENT_MODELS = [M4V_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    m4v = FileDatastream("m4v", "M4V video",
+    content = FileDatastream("m4v", "M4V video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -283,7 +283,7 @@ MP4_CONTENT_MODEL = '%s:mp4' % CONTENT_MODEL_BASE_URI
 
 class VideoMP4(CommonMetadataDO):
     CONTENT_MODELS = [MP4_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    mp4 = FileDatastream("mp4", "MP4 video",
+    content = FileDatastream("mp4", "MP4 video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -297,7 +297,7 @@ PDF_CONTENT_MODEL = '%s:pdf' % CONTENT_MODEL_BASE_URI
 class PDFDigitalObject(CommonMetadataDO):
     CONTENT_MODELS = [PDF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    pdf = FileDatastream("PDF", "PDF Document",
+    content = FileDatastream("PDF", "PDF Document",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -325,7 +325,7 @@ MP3_CONTENT_MODEL = '%s:mp3' % CONTENT_MODEL_BASE_URI
 class AudioMP3(AudioMaster):
     CONTENT_MODELS = [MP3_CONTENT_MODEL, AUDIO_MASTER_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    mp3 = FileDatastream("MP3", "MP3 Audio File",
+    content = FileDatastream("MP3", "MP3 Audio File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -343,7 +343,7 @@ AIFF_CONTENT_MODEL = '%s:aiff' % CONTENT_MODEL_BASE_URI
 class AudioAIFF(CommonMetadataDO):
     CONTENT_MODELS = [AIFF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    aiff = FileDatastream("AIFF", "AIFF Audio File",
+    content = FileDatastream("AIFF", "AIFF Audio File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -357,7 +357,7 @@ WAV_CONTENT_MODEL = '%s:wav' % CONTENT_MODEL_BASE_URI
 class AudioWAV(CommonMetadataDO):
     CONTENT_MODELS = [WAV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    wav = FileDatastream("WAV", "WAV Audio File",
+    content = FileDatastream("WAV", "WAV Audio File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -371,7 +371,7 @@ ZIP_CONTENT_MODEL = '%s:zip' % CONTENT_MODEL_BASE_URI
 class ZippedArchive(CommonMetadataDO):
     CONTENT_MODELS = [ZIP_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    zip = FileDatastream("ZIP", "Zipped Archive",
+    content = FileDatastream("ZIP", "Zipped Archive",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -398,7 +398,7 @@ TEI_CONTENT_MODEL = '%s:tei' % CONTENT_MODEL_BASE_URI
 class TeiFile(CommonMetadataDO):
     CONTENT_MODELS = [TEI_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    tei = FileDatastream("TEI", "TEI File",
+    content = FileDatastream("TEI", "TEI File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -412,7 +412,7 @@ TXT_CONTENT_MODEL = '%s:txt' % CONTENT_MODEL_BASE_URI
 class TxtFile(CommonMetadataDO):
     CONTENT_MODELS = [TXT_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    txt = FileDatastream("TXT", "Txt File",
+    content = FileDatastream("TXT", "Txt File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -426,7 +426,7 @@ CSV_CONTENT_MODEL = '%s:csv' % CONTENT_MODEL_BASE_URI
 class CsvFile(CommonMetadataDO):
     CONTENT_MODELS = [CSV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    csv = FileDatastream("CSV", "CSV File",
+    content = FileDatastream("CSV", "CSV File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -440,7 +440,7 @@ DOC_CONTENT_MODEL = '%s:doc' % CONTENT_MODEL_BASE_URI
 class DocFile(CommonMetadataDO):
     CONTENT_MODELS = [DOC_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    doc = FileDatastream("DOC", "Doc File",
+    content = FileDatastream("DOC", "Doc File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -454,7 +454,7 @@ DOCX_CONTENT_MODEL = '%s:docx' % CONTENT_MODEL_BASE_URI
 class DocxFile(CommonMetadataDO):
     CONTENT_MODELS = [DOCX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    docx = FileDatastream("DOCX", "Docx File",
+    content = FileDatastream("DOCX", "Docx File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -468,7 +468,7 @@ XLS_CONTENT_MODEL = '%s:xls' % CONTENT_MODEL_BASE_URI
 class XlsFile(CommonMetadataDO):
     CONTENT_MODELS = [XLS_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    xls = FileDatastream("XLS", "XLS File",
+    content = FileDatastream("XLS", "XLS File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -482,7 +482,7 @@ XLSX_CONTENT_MODEL = '%s:xlsx' % CONTENT_MODEL_BASE_URI
 class XlsxFile(CommonMetadataDO):
     CONTENT_MODELS = [XLSX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    xlsx = FileDatastream("XLSX", "XLSX File",
+    content = FileDatastream("XLSX", "XLSX File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -547,7 +547,7 @@ BLOB_CONTENT_MODEL = '%s:blob' % CONTENT_MODEL_BASE_URI
 class Blob(CommonMetadataDO):
     CONTENT_MODELS = [BLOB_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    blob = FileDatastream("BLOB", "Any application file",
+    content = FileDatastream("BLOB", "Any application file",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
