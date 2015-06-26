@@ -37,3 +37,5 @@ nosetests.xml
 
 defaultMD.py
 templates/repo/digiarts_list.html
+
+env
