@@ -12,6 +12,7 @@ from eulfedora.rdfns import relsext as relsextns
 
 def choose_content_model(ds_list, default_model=None):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
+    ds_list = [ds.upper() for ds in ds_list]
     #audio formats
     if "AUDIO-MASTER" in ds_list:
         if "MP3" in ds_list:
