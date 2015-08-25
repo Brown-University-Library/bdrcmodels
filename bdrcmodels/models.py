@@ -13,6 +13,8 @@ from eulfedora.rdfns import relsext as relsextns
 def choose_content_model(ds_list, default_model=None):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
     ds_list = [ds.upper() for ds in ds_list]
+    if "PDF" in ds_list and "IA_DC" in ds_list and "BW_PDF" in ds_list:
+        return InternetArchive
     #audio formats
     if "AUDIO-MASTER" in ds_list:
         if "MP3" in ds_list:
@@ -366,6 +368,13 @@ class AudioWAV(CommonMetadataDO):
                          }
                          )
 
+
+INTERNET_ARCHIVE_CONTENT_MODEL = '%s:internet_archive' % CONTENT_MODEL_BASE_URI
+
+class InternetArchive(CommonMetadataDO):
+    CONTENT_MODELS = [INTERNET_ARCHIVE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+
 ZIP_CONTENT_MODEL = '%s:zip' % CONTENT_MODEL_BASE_URI
 
 
@@ -555,4 +564,3 @@ class Blob(CommonMetadataDO):
                              'mimetype': 'application/octet-stream',
                          }
                          )
-
