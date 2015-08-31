@@ -51,6 +51,8 @@ def choose_content_model(ds_list, default_model=None):
         return JPG
     elif "PNG" in ds_list:
         return PNG
+    elif ("HIGHRES" in ds_list and "LOWRES" in ds_list):
+        return ImageCompound
     #other content types
     elif "PDF" in ds_list:
         return PDFDigitalObject
@@ -254,6 +256,12 @@ class PNGImage(MasterImage):
 
 class PNG(PNGImage):
     CONTENT_MODELS = [PNG_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+
+IMAGE_COMPOUND_CONTENT_MODEL = '%s:image-compound' % CONTENT_MODEL_BASE_URI
+
+class ImageCompound(CommonMetadataDO):
+    CONTENT_MODELS = [IMAGE_COMPOUND_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
 
 MOV_CONTENT_MODEL = '%s:mov' % CONTENT_MODEL_BASE_URI
