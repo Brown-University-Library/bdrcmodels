@@ -8,6 +8,10 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = ['PDF', 'IA_DC', 'BW_PDF', 'gif', 'txt']
         self.assertEqual(models.choose_content_model(ds_list), models.InternetArchive)
 
+    def test_image_compound(self):
+        ds_list = ['highres', 'lowres']
+        self.assertEqual(models.choose_content_model(ds_list), models.ImageCompound)
+
     def test_empty_ds_list(self):
         ds_list = []
         self.assertEqual(models.choose_content_model(ds_list), models.ImplicitSet)
