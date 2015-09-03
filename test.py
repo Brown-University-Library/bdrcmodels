@@ -12,6 +12,12 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = ['highres', 'lowres']
         self.assertEqual(models.choose_content_model(ds_list), models.ImageCompound)
 
+    def test_ppt(self):
+        ds_list = ['ppt']
+        self.assertEqual(models.choose_content_model(ds_list), models.PptFile)
+        ds_list = ['pptx']
+        self.assertEqual(models.choose_content_model(ds_list), models.PptxFile)
+
     def test_empty_ds_list(self):
         ds_list = []
         self.assertEqual(models.choose_content_model(ds_list), models.ImplicitSet)
@@ -31,6 +37,17 @@ class CmodelsTest(unittest.TestCase):
         cmodels = models.InternetArchive.CONTENT_MODELS
         self.assertTrue(models.COMMON_METADATA_CONTENT_MODEL in cmodels)
         self.assertTrue('%s:internet_archive' % models.CONTENT_MODEL_BASE_URI in cmodels)
+
+    def test_ppt(self):
+        cmodels = models.PptFile.CONTENT_MODELS
+        self.assertTrue(models.COMMON_METADATA_CONTENT_MODEL in cmodels)
+        self.assertTrue('%s:ppt' % models.CONTENT_MODEL_BASE_URI in cmodels)
+
+    def test_pptx(self):
+        cmodels = models.PptxFile.CONTENT_MODELS
+        self.assertTrue(models.COMMON_METADATA_CONTENT_MODEL in cmodels)
+        self.assertTrue('%s:pptx' % models.CONTENT_MODEL_BASE_URI in cmodels)
+
 
 if __name__ == '__main__':
     unittest.main()

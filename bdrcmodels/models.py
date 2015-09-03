@@ -72,6 +72,10 @@ def choose_content_model(ds_list, default_model=None):
         return XlsFile
     elif "XLSX" in ds_list:
         return XlsxFile
+    elif "PPT" in ds_list:
+        return PptFile
+    elif "PPTX" in ds_list:
+        return PptxFile
     elif "JSON" in ds_list:
         return JSON
     elif "XML" in ds_list:
@@ -505,6 +509,33 @@ class XlsxFile(CommonMetadataDO):
                              'versionable': True,
                              'control_group': 'M',
                              'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                         }
+                         )
+
+
+PPT_CONTENT_MODEL = '%s:ppt' % CONTENT_MODEL_BASE_URI
+
+class PptFile(CommonMetadataDO):
+    CONTENT_MODELS = [PPT_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = FileDatastream("ppt", "Powerpoint File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/vnd.ms-powerpoint',
+                         }
+                         )
+
+PPTX_CONTENT_MODEL = '%s:pptx' % CONTENT_MODEL_BASE_URI
+
+class PptxFile(CommonMetadataDO):
+    CONTENT_MODELS = [PPTX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = FileDatastream("pptx", "Powerpoint File",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                          }
                          )
 
