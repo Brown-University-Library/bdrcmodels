@@ -5,7 +5,9 @@ from bdrcmodels import models
 class ChooseCmodelTest(unittest.TestCase):
 
     def test_ia(self):
-        ds_list = ['PDF', 'IA_DC', 'BW_PDF', 'gif', 'txt']
+        ds_list = ['PDF', 'IA_DC', 'META_MRC', 'BW_PDF', 'gif', 'txt']
+        self.assertEqual(models.choose_content_model(ds_list), models.InternetArchive)
+        ds_list = ['MARC_XML', 'METASOURCE_XML', 'META_MRC', 'IA_DC', 'XTAR', 'SCANDATA_XML', 'xml', 'META_XML']
         self.assertEqual(models.choose_content_model(ds_list), models.InternetArchive)
 
     def test_image_compound(self):

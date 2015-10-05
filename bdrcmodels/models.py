@@ -13,7 +13,7 @@ from eulfedora.rdfns import relsext as relsextns
 def choose_content_model(ds_list, default_model=None):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
     ds_list = [ds.upper() for ds in ds_list]
-    if "PDF" in ds_list and "IA_DC" in ds_list and "BW_PDF" in ds_list:
+    if "IA_DC" in ds_list and "META_MRC" in ds_list:
         return InternetArchive
     #audio formats
     if "AUDIO-MASTER" in ds_list:
