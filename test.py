@@ -14,6 +14,10 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = ['highres', 'lowres']
         self.assertEqual(models.choose_content_model(ds_list), models.ImageCompound)
 
+    def test_master_jp2(self):
+        ds_list = ['MASTER', 'highres_jp2', 'lowres']
+        self.assertEqual(models.choose_content_model(ds_list), models.ImageCompound)
+
     def test_ppt(self):
         ds_list = ['ppt']
         self.assertEqual(models.choose_content_model(ds_list), models.PptFile)

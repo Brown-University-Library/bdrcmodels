@@ -38,6 +38,8 @@ def choose_content_model(ds_list, default_model=None):
             return JPGImage
         elif "PNG" in ds_list:
             return PNGImage
+        elif ("HIGHRES_JP2" in ds_list and "LOWRES" in ds_list):
+            return ImageCompound
         else:
             return MasterImage
     elif "JP2" in ds_list:
