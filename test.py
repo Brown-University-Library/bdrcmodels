@@ -36,6 +36,14 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = ['pdf']
         self.assertEqual(models.choose_content_model(ds_list), models.PDFDigitalObject)
 
+    def test_xlsx_csv(self):
+        ds_list = ['XLSX', 'CSV']
+        self.assertEqual(models.choose_content_model(ds_list), models.CsvFile)
+
+    def test_xls_csv(self):
+        ds_list = ['XLS', 'CSV']
+        self.assertEqual(models.choose_content_model(ds_list), models.CsvFile)
+
 
 class CmodelsTest(unittest.TestCase):
 
