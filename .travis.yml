@@ -13,8 +13,8 @@ python:
 
 install:
 - pip install --upgrade pip
-- pip install coveralls
-- pip install .
+- pip install eulfedora
+- pip install git+https://github.com/Brown-University-Library/bdrxml
 
 script:
 - python test.py
