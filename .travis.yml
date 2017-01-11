@@ -1,0 +1,20 @@
+language: python
+
+before_install:
+- sudo apt-get install -qq libxml2-dev libxslt-dev
+
+env:
+- CFLAGS="-O0"
+
+python:
+- 2.7
+- 3.5
+- 3.6
+
+install:
+- pip install --upgrade pip
+- pip install eulfedora
+- pip install git+https://github.com/Brown-University-Library/bdrxml
+
+script:
+- python test.py
