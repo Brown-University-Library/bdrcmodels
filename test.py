@@ -44,6 +44,10 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = ['XLS', 'CSV']
         self.assertEqual(models.choose_content_model(ds_list), models.CsvFile)
 
+    def test_gif(self):
+        ds_list = ['gif']
+        self.assertEqual(models.choose_content_model(ds_list), models.GIF)
+
 
 class CmodelsTest(unittest.TestCase):
 

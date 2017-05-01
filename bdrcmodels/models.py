@@ -38,6 +38,8 @@ def choose_content_model(ds_list, default_model=None):
             return JPGImage
         elif "PNG" in ds_list:
             return PNGImage
+        elif "GIF" in ds_list:
+            return GIFImage
         elif ("HIGHRES_JP2" in ds_list and "LOWRES" in ds_list):
             return ImageCompound
         else:
@@ -53,6 +55,8 @@ def choose_content_model(ds_list, default_model=None):
         return JPG
     elif "PNG" in ds_list:
         return PNG
+    elif "GIF" in ds_list:
+        return GIF
     elif ("HIGHRES" in ds_list and "LOWRES" in ds_list):
         return ImageCompound
     #other content types
@@ -262,6 +266,22 @@ class PNGImage(MasterImage):
 
 class PNG(PNGImage):
     CONTENT_MODELS = [PNG_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+
+GIF_CONTENT_MODEL = '%s:gif' % CONTENT_MODEL_BASE_URI
+
+class GIFImage(MasterImage):
+    CONTENT_MODELS = [GIF_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+    content = FileDatastream("gif", "GIF image",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'image/gif',
+                         }
+                         )
+
+class GIF(GIFImage):
+    CONTENT_MODELS = [GIF_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
 
 IMAGE_COMPOUND_CONTENT_MODEL = '%s:image-compound' % CONTENT_MODEL_BASE_URI
