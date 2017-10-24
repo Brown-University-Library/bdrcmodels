@@ -44,6 +44,12 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = ['XLS', 'CSV']
         self.assertEqual(models.choose_content_model(ds_list), models.CsvFile)
 
+    def test_tar_gzip(self):
+        ds_list = ['GZIP']
+        self.assertEqual(models.choose_content_model(ds_list), models.GzipArchive)
+        ds_list = ['TAR']
+        self.assertEqual(models.choose_content_model(ds_list), models.TarArchive)
+
 
 class CmodelsTest(unittest.TestCase):
 

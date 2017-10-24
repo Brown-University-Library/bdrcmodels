@@ -60,6 +60,10 @@ def choose_content_model(ds_list, default_model=None):
         return PDFDigitalObject
     elif "ZIP" in ds_list:
         return ZippedArchive
+    elif "GZIP" in ds_list:
+        return GzipArchive
+    elif "TAR" in ds_list:
+        return TarArchive
     elif "TEI" in ds_list:
         return TeiFile
     elif "TXT" in ds_list:
