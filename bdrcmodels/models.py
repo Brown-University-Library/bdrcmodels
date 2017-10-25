@@ -60,6 +60,10 @@ def choose_content_model(ds_list, default_model=None):
         return PDFDigitalObject
     elif "ZIP" in ds_list:
         return ZippedArchive
+    elif "GZIP" in ds_list:
+        return GzipArchive
+    elif "TAR" in ds_list:
+        return TarArchive
     elif "TEI" in ds_list:
         return TeiFile
     elif "TXT" in ds_list:
@@ -391,7 +395,6 @@ class InternetArchive(CommonMetadataDO):
 
 ZIP_CONTENT_MODEL = '%s:zip' % CONTENT_MODEL_BASE_URI
 
-
 class ZippedArchive(CommonMetadataDO):
     CONTENT_MODELS = [ZIP_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
@@ -402,6 +405,35 @@ class ZippedArchive(CommonMetadataDO):
                              'mimetype': 'application/zip',
                          }
                          )
+
+
+GZIP_CONTENT_MODEL = '%s:gzip' % CONTENT_MODEL_BASE_URI
+
+class GzipArchive(CommonMetadataDO):
+    CONTENT_MODELS = [GZIP_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = FileDatastream("GZIP", "Gzip Archive",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/gzip',
+                         }
+                         )
+
+
+TAR_CONTENT_MODEL = '%s:tar' % CONTENT_MODEL_BASE_URI
+
+class TarArchive(CommonMetadataDO):
+    CONTENT_MODELS = [TAR_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+    content = FileDatastream("TAR", "Tape Archive",
+                         defaults={
+                             'versionable': True,
+                             'control_group': 'M',
+                             'mimetype': 'application/tar',
+                         }
+                         )
+
 
 XML_CONTENT_MODEL = '%s:xml' % CONTENT_MODEL_BASE_URI
 
