@@ -33,7 +33,6 @@ EXT_TO_DS_ID = {
         'aiff': 'AIFF',
         'dng': 'DIGITAL-NEGATIVE',
         'dwc': 'DWC',
-        'psd': 'PSD',
         'csv': 'CSV',
         'txt': 'TXT',
         'gz': 'GZIP',
