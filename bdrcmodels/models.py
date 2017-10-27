@@ -10,6 +10,40 @@ from rdflib.namespace import Namespace
 from eulfedora.rdfns import relsext as relsextns
 
 
+EXT_TO_DS_ID = {
+        'mods': 'MODS',
+        'mp3': 'MP3',
+        'mov': 'MOV',
+        'mp4': 'MP4',
+        'm4v': 'M4V',
+        'jp2': 'JP2',
+        'pdf': 'PDF',
+        'tif': 'TIF',
+        'tiff': 'TIF',
+        'png': 'PNG',
+        'jpeg': 'JPG',
+        'jpg': 'JPG',
+        'zip': 'ZIP',
+        'doc': 'DOC',
+        'docx': 'DOCX',
+        'xls': 'XLS',
+        'xlsx': 'XLSX',
+        'wav': 'WAV',
+        'aif': 'AIFF',
+        'aiff': 'AIFF',
+        'dng': 'DIGITAL-NEGATIVE',
+        'dwc': 'DWC',
+        'psd': 'PSD',
+        'csv': 'CSV',
+        'txt': 'TXT',
+        'gz': 'GZIP',
+    }
+
+
+def get_dsid_from_ext(ext):
+    return EXT_TO_DS_ID[ext]
+
+
 def choose_content_model(ds_list, default_model=None):
     """Chooses the appropriate content model based on the contents of the list of datastream names"""
     ds_list = [ds.upper() for ds in ds_list]
@@ -240,7 +274,7 @@ JPG_CONTENT_MODEL = '%s:jpg' % CONTENT_MODEL_BASE_URI
 
 class JPGImage(MasterImage):
     CONTENT_MODELS = [JPG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    content = FileDatastream("jpg", "JPG version of the MASTER image. Suitable for further dissemination",
+    content = FileDatastream("JPG", "JPG version of the MASTER image. Suitable for further dissemination",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -256,7 +290,7 @@ PNG_CONTENT_MODEL = '%s:png' % CONTENT_MODEL_BASE_URI
 
 class PNGImage(MasterImage):
     CONTENT_MODELS = [PNG_CONTENT_MODEL, MASTER_IMAGE_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    content = FileDatastream("png", "PNG image",
+    content = FileDatastream("PNG", "PNG image",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -278,7 +312,7 @@ MOV_CONTENT_MODEL = '%s:mov' % CONTENT_MODEL_BASE_URI
 
 class VideoMOV(CommonMetadataDO):
     CONTENT_MODELS = [MOV_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    content = FileDatastream("mov", "Quicktime MOV video",
+    content = FileDatastream("MOV", "Quicktime MOV video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -291,7 +325,7 @@ M4V_CONTENT_MODEL = '%s:m4v' % CONTENT_MODEL_BASE_URI
 
 class VideoM4V(CommonMetadataDO):
     CONTENT_MODELS = [M4V_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    content = FileDatastream("m4v", "M4V video",
+    content = FileDatastream("M4V", "M4V video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -304,7 +338,7 @@ MP4_CONTENT_MODEL = '%s:mp4' % CONTENT_MODEL_BASE_URI
 
 class VideoMP4(CommonMetadataDO):
     CONTENT_MODELS = [MP4_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
-    content = FileDatastream("mp4", "MP4 video",
+    content = FileDatastream("MP4", "MP4 video",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -552,7 +586,7 @@ PPT_CONTENT_MODEL = '%s:ppt' % CONTENT_MODEL_BASE_URI
 class PptFile(CommonMetadataDO):
     CONTENT_MODELS = [PPT_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    content = FileDatastream("ppt", "Powerpoint File",
+    content = FileDatastream("PPT", "Powerpoint File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
@@ -565,7 +599,7 @@ PPTX_CONTENT_MODEL = '%s:pptx' % CONTENT_MODEL_BASE_URI
 class PptxFile(CommonMetadataDO):
     CONTENT_MODELS = [PPTX_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
 
-    content = FileDatastream("pptx", "Powerpoint File",
+    content = FileDatastream("PPTX", "Powerpoint File",
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
