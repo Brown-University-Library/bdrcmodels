@@ -2,6 +2,14 @@ import unittest
 from bdrcmodels import models
 
 
+class GetDsIdTest(unittest.TestCase):
+
+    def test_1(self):
+        self.assertEqual(models.get_dsid_from_ext('jpg'), 'JPG')
+        self.assertEqual(models.get_dsid_from_ext('png'), 'PNG')
+        self.assertEqual(models.get_dsid_from_ext('mov'), 'MOV')
+
+
 class ChooseCmodelTest(unittest.TestCase):
 
     def test_ia(self):
