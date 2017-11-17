@@ -1,3 +1,4 @@
+import mimetypes
 from eulfedora.models import DigitalObject, FileDatastream, XmlDatastream, Relation
 from bdrxml import rights
 from bdrxml import irMetadata
@@ -39,8 +40,16 @@ EXT_TO_DS_ID = {
     }
 
 
+mimetypes.add_type('image/tiff', '.dng', strict=False)
+
+
 def get_dsid_from_ext(ext):
     return EXT_TO_DS_ID[ext]
+
+
+def get_mimetype_from_filename(filename):
+    guessed, _ = mimetypes.guess_type(filename, strict=False)
+    return guessed
 
 
 def choose_content_model(ds_list, default_model=None):
@@ -463,7 +472,7 @@ class TarArchive(CommonMetadataDO):
                          defaults={
                              'versionable': True,
                              'control_group': 'M',
-                             'mimetype': 'application/tar',
+                             'mimetype': 'application/x-tar',
                          }
                          )
 

@@ -10,6 +10,24 @@ class GetDsIdTest(unittest.TestCase):
         self.assertEqual(models.get_dsid_from_ext('mov'), 'MOV')
 
 
+class GetMimetypeTest(unittest.TestCase):
+
+    def test_1(self):
+        self.assertEqual(models.get_mimetype_from_filename('test.jpg'), 'image/jpeg')
+        self.assertEqual(models.get_mimetype_from_filename('test.tif'), 'image/tiff')
+        self.assertEqual(models.get_mimetype_from_filename('test.tiff'), 'image/tiff')
+        self.assertEqual(models.get_mimetype_from_filename('test.jp2'), 'image/jp2')
+        self.assertEqual(models.get_mimetype_from_filename('test.dng'), 'image/tiff')
+        self.assertEqual(models.get_mimetype_from_filename('test.png'), 'image/png')
+        self.assertEqual(models.get_mimetype_from_filename('test.svg'), 'image/svg+xml')
+        self.assertEqual(models.get_mimetype_from_filename('test.pdf'), 'application/pdf')
+        self.assertEqual(models.get_mimetype_from_filename('test.zip'), 'application/zip')
+        self.assertEqual(models.get_mimetype_from_filename('test.tar'), 'application/x-tar')
+        self.assertEqual(models.get_mimetype_from_filename('test.mp3'), 'audio/mpeg')
+        self.assertEqual(models.get_mimetype_from_filename('test.odt'), 'application/vnd.oasis.opendocument.text')
+        self.assertEqual(models.get_mimetype_from_filename('test.mov'), 'video/quicktime')
+
+
 class ChooseCmodelTest(unittest.TestCase):
 
     def test_ia(self):
