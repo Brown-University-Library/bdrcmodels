@@ -49,6 +49,8 @@ def get_dsid_from_filename(filename):
 
 
 def get_mimetype_from_filename(filename):
+    if '.' not in filename:
+        filename = f'a.{filename}'
     guessed, _ = mimetypes.guess_type(filename, strict=False)
     return guessed
 
