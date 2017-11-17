@@ -43,7 +43,8 @@ EXT_TO_DS_ID = {
 mimetypes.add_type('image/tiff', '.dng', strict=False)
 
 
-def get_dsid_from_ext(ext):
+def get_dsid_from_filename(filename):
+    ext = filename.rsplit('.')[-1]
     return EXT_TO_DS_ID[ext]
 
 

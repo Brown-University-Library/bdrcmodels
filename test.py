@@ -5,9 +5,9 @@ from bdrcmodels import models
 class GetDsIdTest(unittest.TestCase):
 
     def test_1(self):
-        self.assertEqual(models.get_dsid_from_ext('jpg'), 'JPG')
-        self.assertEqual(models.get_dsid_from_ext('png'), 'PNG')
-        self.assertEqual(models.get_dsid_from_ext('mov'), 'MOV')
+        self.assertEqual(models.get_dsid_from_filename('jpg'), 'JPG')
+        self.assertEqual(models.get_dsid_from_filename('png'), 'PNG')
+        self.assertEqual(models.get_dsid_from_filename('mov'), 'MOV')
 
 
 class GetMimetypeTest(unittest.TestCase):
