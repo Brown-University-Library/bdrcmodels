@@ -45,7 +45,7 @@ mimetypes.add_type('image/tiff', '.dng', strict=False)
 
 def get_dsid_from_filename(filename):
     ext = filename.rsplit('.')[-1]
-    return EXT_TO_DS_ID[ext]
+    return EXT_TO_DS_ID.get(ext, None)
 
 
 def get_mimetype_from_filename(filename):
