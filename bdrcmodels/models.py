@@ -153,7 +153,9 @@ class CommonMetadataDO(DigitalObject):
     owning_collection = Relation(relsextns.isMemberOf, type="self")
     isPartOf = Relation(relsextns.isPartOf, type="self")
     isAnnotationOf = Relation(relsextns.isAnnotationOf, type="self")
+    isDerivationOf = Relation(relsextns.isDerivationOf, type="self")
     page_number = Relation(LIBNS.hasPagination, ns_prefix={"bul-rel": LIBNS})
+    stream_uri = Relation(LIBNS.hasStream, ns_prefix={"bul-rel": LIBNS})
 
     rels_int = XmlDatastream(
         "RELS-INT",
