@@ -29,9 +29,9 @@ EXT_TO_DS_ID = {
         'docx': 'DOCX',
         'xls': 'XLS',
         'xlsx': 'XLSX',
-        'wav': 'WAV',
-        'aif': 'AIFF',
-        'aiff': 'AIFF',
+        'wav': 'AUDIO-MASTER',
+        'aif': 'AUDIO-MASTER',
+        'aiff': 'AUDIO-MASTER',
         'dng': 'DIGITAL-NEGATIVE',
         'dwc': 'DWC',
         'csv': 'CSV',
@@ -44,6 +44,7 @@ mimetypes.add_type('image/tiff', '.dng', strict=False)
 
 
 def get_dsid_from_filename(filename):
+    #this assumes there are no other content datastreams
     ext = filename.rsplit('.')[-1]
     return EXT_TO_DS_ID.get(ext, None)
 
