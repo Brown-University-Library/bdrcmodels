@@ -64,7 +64,7 @@ class ChooseCmodelTest(unittest.TestCase):
         ds_list = []
         self.assertEqual(models.choose_content_model(ds_list, default_model='undetermined'), models.Undetermined)
 
-    def test1(self):
+    def test_pdf(self):
         ds_list = ['pdf']
         self.assertEqual(models.choose_content_model(ds_list), models.PDFDigitalObject)
 
@@ -81,6 +81,12 @@ class ChooseCmodelTest(unittest.TestCase):
         self.assertEqual(models.choose_content_model(ds_list), models.GzipArchive)
         ds_list = ['TAR']
         self.assertEqual(models.choose_content_model(ds_list), models.TarArchive)
+
+    def test_audio(self):
+        ds_list = ['AUDIO-MASTER']
+        self.assertEqual(models.choose_content_model(ds_list), models.AudioMaster)
+        ds_list = ['AUDIO-MASTER', 'MP3']
+        self.assertEqual(models.choose_content_model(ds_list), models.AudioMP3)
 
 
 class CmodelsTest(unittest.TestCase):
