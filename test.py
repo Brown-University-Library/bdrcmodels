@@ -23,7 +23,7 @@ class GetMimetypeTest(unittest.TestCase):
         self.assertEqual(models.get_mimetype_from_filename('test.tif'), 'image/tiff')
         self.assertEqual(models.get_mimetype_from_filename('test.tiff'), 'image/tiff')
         self.assertEqual(models.get_mimetype_from_filename('test.jp2'), 'image/jp2')
-        self.assertEqual(models.get_mimetype_from_filename('test.dng'), 'image/tiff')
+        self.assertEqual(models.get_mimetype_from_filename('test.dng'), 'image/x-adobe-dng')
         self.assertEqual(models.get_mimetype_from_filename('test.png'), 'image/png')
         self.assertEqual(models.get_mimetype_from_filename('test.svg'), 'image/svg+xml')
         self.assertEqual(models.get_mimetype_from_filename('test.pdf'), 'application/pdf')
@@ -110,3 +110,4 @@ class CmodelsTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
     sys.exit(0)
+
