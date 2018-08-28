@@ -40,7 +40,7 @@ EXT_TO_DS_ID = {
     }
 
 
-mimetypes.add_type('image/tiff', '.dng', strict=False)
+mimetypes.add_type('image/x-adobe-dng', '.dng', strict=False)
 
 
 def get_dsid_from_filename(filename):
@@ -256,7 +256,7 @@ class MasterImage(CommonMetadataDO):
                                      defaults={
                                          'versionable': True,
                                          'control_group': 'M',
-                                         'mimetype': 'image/tiff',
+                                         'mimetype': 'image/x-adobe-dng',
                                      }
                                      )
 
