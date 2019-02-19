@@ -17,6 +17,7 @@ EXT_TO_DS_ID = {
         'mov': 'MOV',
         'mp4': 'MP4',
         'm4v': 'M4V',
+        'avi': 'AVI',
         'jp2': 'JP2',
         'pdf': 'PDF',
         'tif': 'TIF',

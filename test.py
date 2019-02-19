@@ -10,6 +10,7 @@ class GetDsIdTest(unittest.TestCase):
         self.assertEqual(models.get_dsid_from_filename('jpg'), 'JPG')
         self.assertEqual(models.get_dsid_from_filename('test.png'), 'PNG')
         self.assertEqual(models.get_dsid_from_filename('test.mov'), 'MOV')
+        self.assertEqual(models.get_dsid_from_filename('test.avi'), 'AVI')
         self.assertEqual(models.get_dsid_from_filename('test.wav'), 'AUDIO-MASTER')
         self.assertEqual(models.get_dsid_from_filename('test.aiff'), 'AUDIO-MASTER')
 
