@@ -210,13 +210,34 @@ class BDRCollection(CommonMetadataDO):
 class Image(CommonMetadataDO):
     CONTENT_MODELS = ['%s:image' % CONTENT_MODEL_BASE_URI]
 
+    content = FileDatastream('MASTER', 'Master Image File',
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                            }
+                            )
+
 
 class Audio(CommonMetadataDO):
     CONTENT_MODELS = ['%s:audio' % CONTENT_MODEL_BASE_URI]
 
+    content = FileDatastream('AUDIO-MASTER', 'Master Audio File',
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                            }
+                            )
+
 
 class Video(CommonMetadataDO):
     CONTENT_MODELS = ['%s:video' % CONTENT_MODEL_BASE_URI]
+
+    content = FileDatastream('VIDEO-MASTER', 'Master Video File',
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                            }
+                            )
 
 
 MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI
