@@ -63,47 +63,22 @@ def choose_content_model(ds_list, default_model=None):
     if "IA_DC" in ds_list and "META_MRC" in ds_list:
         return InternetArchive
     #audio formats
-    if "AUDIO-MASTER" in ds_list:
-        if "MP3" in ds_list:
-            return AudioMP3
-        else:
-            return AudioMaster
-    elif "MP3" in ds_list:
-        return MP3
+    if "AUDIO-MASTER" in ds_list or 'MP3' in ds_list:
+        return Audio
     #video formats
-    elif "MP4" in ds_list:
-        return VideoMP4
-    elif "MOV" in ds_list:
-        return VideoMOV
-    elif "M4V" in ds_list:
-        return VideoM4V
-    #handle all the master image content models here
-    elif "MASTER" in ds_list or "MASTER-COLORBAR" in ds_list:
-        if "JP2" in ds_list:
-            return JP2Image
-        elif "JPG" in ds_list:
-            return JPGImage
-        elif "PNG" in ds_list:
-            return PNGImage
-        elif ("HIGHRES_JP2" in ds_list and "LOWRES" in ds_list):
-            return ImageCompound
-        else:
-            return MasterImage
-    elif "JP2" in ds_list:
-        if "TIF" in ds_list or "TIFF" in ds_list:
-        #this looks like a master-jp2 setup, without explicit dsIDs
-            return JP2Image
-    #now handle images by themselves, without a master
-        else:
-            return JP2
-    elif "JPG" in ds_list:
-        return JPG
-    elif "PNG" in ds_list:
-        return PNG
-    elif ("HIGHRES" in ds_list and "LOWRES" in ds_list):
-        return ImageCompound
+    if 'VIDEO-MASTER' in ds_list:
+        return Video
+    if "MP4" in ds_list or 'MOV' in ds_list or 'M4V' in ds_list:
+        return Video
+    #handle all the image content models here
+    if "MASTER" in ds_list or "MASTER-COLORBAR" in ds_list:
+        return Image
+    elif "JP2" in ds_list or 'JPG' in ds_list or 'PNG' in ds_list:
+        return Image
+    elif "HIGHRES" in ds_list or "LOWRES" in ds_list:
+        return Image
     #other content types
-    elif "PDF" in ds_list:
+    if "PDF" in ds_list:
         return PDFDigitalObject
     elif "ZIP" in ds_list:
         return ZippedArchive
@@ -230,6 +205,39 @@ BDR_COLLECTION_CONTENT_MODEL = '%s:bdr-collection' % CONTENT_MODEL_BASE_URI
 
 class BDRCollection(CommonMetadataDO):
     CONTENT_MODELS = [BDR_COLLECTION_CONTENT_MODEL, IMPLICIT_SET_CONTENT_MODEL, COMMON_METADATA_CONTENT_MODEL]
+
+
+class Image(CommonMetadataDO):
+    CONTENT_MODELS = ['%s:image' % CONTENT_MODEL_BASE_URI]
+
+    content = FileDatastream('MASTER', 'Master Image File',
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                            }
+                            )
+
+
+class Audio(CommonMetadataDO):
+    CONTENT_MODELS = ['%s:audio' % CONTENT_MODEL_BASE_URI]
+
+    content = FileDatastream('AUDIO-MASTER', 'Master Audio File',
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                            }
+                            )
+
+
+class Video(CommonMetadataDO):
+    CONTENT_MODELS = ['%s:video' % CONTENT_MODEL_BASE_URI]
+
+    content = FileDatastream('VIDEO-MASTER', 'Master Video File',
+                            defaults={
+                                'versionable': True,
+                                'control_group': 'M',
+                            }
+                            )
 
 
 MASTER_IMAGE_CONTENT_MODEL = '%s:masterImage' % CONTENT_MODEL_BASE_URI

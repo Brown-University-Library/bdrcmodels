@@ -45,11 +45,23 @@ class ChooseCmodelTest(unittest.TestCase):
 
     def test_image_compound(self):
         ds_list = ['highres', 'lowres']
-        self.assertEqual(models.choose_content_model(ds_list), models.ImageCompound)
+        self.assertEqual(models.choose_content_model(ds_list), models.Image)
 
     def test_master_jp2(self):
         ds_list = ['MASTER', 'highres_jp2', 'lowres']
-        self.assertEqual(models.choose_content_model(ds_list), models.ImageCompound)
+        self.assertEqual(models.choose_content_model(ds_list), models.Image)
+
+    def test_audio(self):
+        ds_list = ['AUDIO-MASTER']
+        self.assertEqual(models.choose_content_model(ds_list), models.Audio)
+        ds_list = ['AUDIO-MASTER', 'MP3']
+        self.assertEqual(models.choose_content_model(ds_list), models.Audio)
+
+    def test_video(self):
+        ds_list = ['VIDEO-MASTER']
+        self.assertEqual(models.choose_content_model(ds_list), models.Video)
+        ds_list = ['VIDEO-MASTER', 'MP4']
+        self.assertEqual(models.choose_content_model(ds_list), models.Video)
 
     def test_ppt(self):
         ds_list = ['ppt']
@@ -82,12 +94,6 @@ class ChooseCmodelTest(unittest.TestCase):
         self.assertEqual(models.choose_content_model(ds_list), models.GzipArchive)
         ds_list = ['TAR']
         self.assertEqual(models.choose_content_model(ds_list), models.TarArchive)
-
-    def test_audio(self):
-        ds_list = ['AUDIO-MASTER']
-        self.assertEqual(models.choose_content_model(ds_list), models.AudioMaster)
-        ds_list = ['AUDIO-MASTER', 'MP3']
-        self.assertEqual(models.choose_content_model(ds_list), models.AudioMP3)
 
 
 class CmodelsTest(unittest.TestCase):
