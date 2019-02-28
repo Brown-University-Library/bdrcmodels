@@ -33,6 +33,7 @@ class GetMimetypeTest(unittest.TestCase):
         self.assertEqual(models.get_mimetype_from_filename('test.mp3'), 'audio/mpeg')
         self.assertEqual(models.get_mimetype_from_filename('test.odt'), 'application/vnd.oasis.opendocument.text')
         self.assertEqual(models.get_mimetype_from_filename('test.mov'), 'video/quicktime')
+        self.assertEqual(models.get_mimetype_from_filename('test.mkv'), 'video/x-matroska')
 
 
 class ChooseCmodelTest(unittest.TestCase):
