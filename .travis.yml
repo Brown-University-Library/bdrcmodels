@@ -1,3 +1,4 @@
+dist: xenial
 language: python
 
 before_install:
@@ -7,14 +8,15 @@ env:
 - CFLAGS="-O0"
 
 python:
-- 2.7
 - 3.5
 - 3.6
+- 3.7
 
 install:
 - pip install --upgrade pip
 - pip install eulfedora
 - pip install git+https://github.com/Brown-University-Library/bdrxml
+- pip install .
 
 script:
 - python test.py
