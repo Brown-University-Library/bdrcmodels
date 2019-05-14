@@ -9,6 +9,7 @@ from bdrxml import darwincore
 from rdflib import URIRef
 from rdflib.namespace import Namespace
 from eulfedora.rdfns import relsext as relsextns
+from eulxml.xmlmap import teimap
 
 
 EXT_TO_DS_ID = {
@@ -172,6 +173,13 @@ class CommonMetadataDO(DigitalObject):
                          defaults={
                              'control_group': 'M',
                              'format': darwincore.DWCNS,
+                             'versionable': True,
+                         }
+                         )
+    tei = XmlDatastream('TEI', 'TEI metadata', teimap.Tei,
+                         defaults={
+                             'control_group': 'M',
+                             'format': teimap.TEI_NAMESPACE,
                              'versionable': True,
                          }
                          )
