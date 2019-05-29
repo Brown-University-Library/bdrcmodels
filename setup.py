@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='bdrcmodels',
-    version='0.2',
+    version='0.3a1',
     packages=find_packages(),
     install_requires=[
         'eulfedora>=1.7.2',
