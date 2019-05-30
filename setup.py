@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='bdrcmodels',
-    version='0.4',
+    version='0.5a1',
     url='https://github.com/Brown-University-Library/bdrcmodels',
     author='Brown University Library',
     author_email='bdr@brown.edu',
