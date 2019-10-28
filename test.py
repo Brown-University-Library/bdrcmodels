@@ -13,6 +13,7 @@ class GetDsIdTest(unittest.TestCase):
         self.assertEqual(models.get_dsid_from_filename('test.avi'), 'AVI')
         self.assertEqual(models.get_dsid_from_filename('test.wav'), 'AUDIO-MASTER')
         self.assertEqual(models.get_dsid_from_filename('test.aiff'), 'AUDIO-MASTER')
+        self.assertEqual(models.get_dsid_from_filename('test.tiff'), 'MASTER')
 
 
 class GetMimetypeTest(unittest.TestCase):
