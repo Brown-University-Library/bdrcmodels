@@ -53,6 +53,8 @@ def get_dsid_from_filename(filename):
 
 
 def get_mimetype_from_filename(filename):
+    if filename.endswith('.tei.xml') or filename.endswith('.tei'):
+        return 'application/tei+xml'
     if '.' not in filename:
         filename = 'a.%s' % filename
     guessed, _ = mimetypes.guess_type(filename, strict=False)
